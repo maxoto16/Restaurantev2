@@ -24,7 +24,7 @@ public class MainApp extends Application {
 
     public static class ConexionBaseDatos {
         // Constantes para la configuración de la base de datos
-        private static final String UBICACION_WALLET = "C:\\Users\\Diara\\OneDrive\\Imágenes\\Desktop\\Restaurantev2\\src\\wallet";
+        private static final String UBICACION_WALLET = "C:\\ProyectoIntegradorUtezHugo\\Restaurantev2\\src\\wallet";
         private static final String JDBC_URL = "jdbc:oracle:thin:@zn6zve2fi4r2aeqx_high";
         private static final String USUARIO = "ADMIN";
         private static final String PASSWORD = "Maxoto2005$$$$$";
