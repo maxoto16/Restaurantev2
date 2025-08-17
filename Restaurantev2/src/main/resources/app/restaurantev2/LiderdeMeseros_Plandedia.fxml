@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane cache="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" stylesheets="@lidermeserosStyle.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.restaurantev2.LiderMeserosController">
+
+    <!-- MENÚ LATERAL -->
+    <left>
+        <VBox id="menuscroller" alignment="TOP_CENTER" cache="true" cacheHint="SCALE" prefHeight="900.0" prefWidth="370.0" spacing="15" styleClass="menuscroller">
+            <ImageView id="imagenlogo" fitHeight="235.0" fitWidth="221.0" pickOnBounds="true" preserveRatio="true" styleClass="imagenlogo">
+                <image>
+                    <Image url="@images/adminlogo.png" />
+                </image>
+            </ImageView>
+            <Label id="TITULOPANEL" fx:id="lblTitulo1" alignment="CENTER" contentDisplay="CENTER" prefHeight="60.0" prefWidth="1147.0" styleClass="TITULOMENU" text="Lider De Meseros">
+                <font>
+                    <Font name="Georgia Bold Italic" size="23.0" />
+                </font>
+            </Label>
+
+            <VBox id="cajamenu" alignment="TOP_CENTER" prefHeight="448.0" prefWidth="375.0" spacing="30.0" styleClass="cajamenu">
+
+                <Button fx:id="btninicio" alignment="BASELINE_LEFT" prefHeight="85.0" prefWidth="460.0" style="-fx-border-color: white; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-width: 2 2 2 2; -fx-label-padding: 20;" text="   Inicio">
+                    <font>
+                        <Font name="Corbel" size="12.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/mesasicono.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Button>
+                <Button fx:id="btnPlandedia" alignment="BASELINE_LEFT" prefHeight="85.0" prefWidth="460.0" style="-fx-border-color: WHITE; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-width: 2 2 2 2; -fx-label-padding: 20;" text="   Plan Del Dia">
+                    <font>
+                        <Font name="Corbel" size="12.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="55.0" fitWidth="122.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/Estadisticasicono.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <InnerShadow choke="0.4" height="75.0" radius="50.75" width="130.0">
+                     <input>
+                        <InnerShadow />
+                     </input>
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </InnerShadow>
+               </effect>
+                </Button>
+                <Button fx:id="btnHistorial" alignment="BASELINE_LEFT" prefHeight="85.0" prefWidth="460.0" style="-fx-border-color: white; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-width: 2 2 2 2; -fx-label-padding: 20;" text="  Historial">
+                    <font>
+                        <Font name="Corbel" size="12.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/CategoriaIcono.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+                </Button>
+
+            </VBox>
+            <Button fx:id="btnSalir" alignment="BASELINE_LEFT" prefHeight="80.0" prefWidth="250.0" style="-fx-background-radius: 10px; -fx-border-radius: 10px; -fx-label-padding: 20; -fx-background-color: red;" text="Salir">
+                <graphic>
+                    <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@images/Saliricono.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+
+        </VBox>
+    </left>
+    <center>
+        <VBox id="inicioMesero" alignment="TOP_CENTER" prefHeight="900.0" prefWidth="854.0" styleClass="inicioMesero">
+            <children>
+                <Pane prefHeight="846.0" prefWidth="1230.0">
+                    <children>
+                        <VBox id="cajapanel" alignment="TOP_CENTER" cache="true" cacheHint="SCALE" layoutX="40.0" layoutY="17.0" prefHeight="870.0" prefWidth="1167.0" style="-fx-border-radius: 15; -fx-background-color: grey; -fx-background-radius: 15;" styleClass="cajapanel">
+                            <children>
+                                <Label prefHeight="46.0" prefWidth="1083.0" text="Plan De Dia">
+                                    <font>
+                                        <Font name="Century Gothic" size="36.0" />
+                                    </font>
+                                </Label>
+                                <Pane id="panelmesero" cache="true" cacheHint="SCALE" prefHeight="809.0" prefWidth="1107.0" styleClass="panelmesero">
+                                    <children>
+
+                                        <TableView fx:id="tablaSolicitudes" cacheShape="true" fixedCellSize="30.0" focusTraversable="true" layoutX="-9.0" layoutY="70.0" prefHeight="214.0" prefWidth="732.0">
+                                            <columns>
+                                                <TableColumn fx:id="colNumero" editable="false" prefWidth="200.0" style="-fx-font-size: 20px; -fx-text-fill: black;" text="Mesa" />
+                                                <TableColumn fx:id="colCapacidad" editable="false" prefWidth="251.0" style="-fx-font-size: 20px; -fx-text-fill: black;" text="Mesero" />
+                                                <TableColumn fx:id="colArea" minWidth="0.0" prefWidth="260.0" style="-fx-font-size: 20px; -fx-text-fill: black;" text="Horario" />
+                                            </columns>
+                                            <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                            </columnResizePolicy>
+                                            <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                            </cursor>
+                                        </TableView>
+                                        <Button fx:id="btnAceptar" alignment="CENTER" contentDisplay="CENTER" layoutX="792.0" layoutY="86.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="156.0" text="Editar" textAlignment="CENTER" />
+                              <TextField layoutX="-9.0" layoutY="20.0" prefHeight="38.0" prefWidth="208.0" promptText="Mesa" />
+                              <TextField layoutX="229.0" layoutY="20.0" prefHeight="38.0" prefWidth="208.0" promptText="Mesero" />
+                              <TextField layoutX="473.0" layoutY="20.0" prefHeight="38.0" prefWidth="208.0" promptText="Horario" />
+                              <TableView fx:id="tablaSolicitudes1" cacheShape="true" fixedCellSize="30.0" focusTraversable="true" layoutX="14.0" layoutY="434.0" prefHeight="311.0" prefWidth="894.0">
+                                 <columns>
+                                    <TableColumn fx:id="colNumero1" editable="false" prefWidth="168.0" style="-fx-font-size: 20px; -fx-text-fill: black;" text="Mesa" />
+                                    <TableColumn fx:id="colCapacidad1" editable="false" prefWidth="128.0" style="-fx-font-size: 20px; -fx-text-fill: black;" text="Mesero" />
+                                    <TableColumn fx:id="colArea1" minWidth="0.0" prefWidth="142.0" style="-fx-font-size: 20px; -fx-text-fill: black;" text="Horario" />
+                                    <TableColumn fx:id="colArea11" minWidth="0.0" prefWidth="178.0" style="-fx-font-size: 20px; -fx-text-fill: black;" text="Fecha" />
+                                 </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </TableView>
+                              <Label layoutX="23.0" layoutY="390.0" prefHeight="17.0" prefWidth="385.0" text="HIASTORIAL">
+                                 <font>
+                                    <Font name="Century Gothic" size="30.0" />
+                                 </font>
+                              </Label>
+                              <Button fx:id="btnAceptar1" alignment="CENTER" contentDisplay="CENTER" layoutX="792.0" layoutY="14.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="156.0" text="Añadir al plan" textAlignment="CENTER" />
+                              <Button fx:id="btnAceptar2" alignment="CENTER" contentDisplay="CENTER" layoutX="792.0" layoutY="162.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="156.0" text="Eliminar" textAlignment="CENTER" />
+                                    </children>
+                                </Pane>
+                            </children>
+                        </VBox>
+                    </children>
+                </Pane>
+            </children>
+        </VBox>
+    </center>
+</BorderPane>

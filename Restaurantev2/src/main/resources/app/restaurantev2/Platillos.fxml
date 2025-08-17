@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane id="root" cache="true" prefHeight="800.0" prefWidth="1280.0" styleClass="root" stylesheets="@platillosStyle.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.restaurantev2.PlatillosController">
+    <!-- MENÚ LATERAL -->
+    <left>
+        <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="340.0" spacing="10" styleClass="vbox">
+            <ImageView fx:id="logoImage" fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" styleClass="image-view">
+                <image>
+                    <Image url="@images/adminlogo.png" />
+                </image>
+            </ImageView>
+            <Label fx:id="adminName" text="ADMINISTRADOR"
+                   styleClass="admin-label" prefWidth="230" alignment="CENTER"/>
+            <VBox spacing="12" alignment="TOP_CENTER" styleClass="menu-box">
+                <Button fx:id="btnMesas" prefHeight="55.0" prefWidth="270.0" styleClass="button" text="Mesas" contentDisplay="LEFT" graphicTextGap="15">
+                    <graphic>
+                        <ImageView fx:id="iconMesas" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="image-view">
+                            <image>
+                                <Image url="@images/mesasicono.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnEstadisticas" prefHeight="55.0" prefWidth="270.0" styleClass="button" text="Estadisticas" contentDisplay="LEFT" graphicTextGap="15">
+                    <graphic>
+                        <ImageView fx:id="iconEstadisticas" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="image-view">
+                            <image>
+                                <Image url="@images/Estadisticasicono.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnCategorias" prefHeight="55.0" prefWidth="270.0" styleClass="button" text="Categorias" contentDisplay="LEFT" graphicTextGap="15">
+                    <graphic>
+                        <ImageView fx:id="iconCategorias" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="image-view">
+                            <image>
+                                <Image url="@images/CategoriaIcono.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnPlatillos" prefHeight="55.0" prefWidth="270.0" styleClass="button" text="Platillos" contentDisplay="LEFT" graphicTextGap="15">
+                    <graphic>
+                        <ImageView fx:id="iconPlatillos" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="image-view">
+                            <image>
+                                <Image url="@images/platillosicono.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnUsuarios" prefHeight="55.0" prefWidth="270.0" styleClass="button" text="Usuarios" contentDisplay="LEFT" graphicTextGap="15">
+                    <graphic>
+                        <ImageView fx:id="iconUsuarios" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="image-view">
+                            <image>
+                                <Image url="@images/Usuariosico.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnSalir" prefHeight="55.0" prefWidth="220.0" styleClass="button" text="Salir" contentDisplay="LEFT" graphicTextGap="15">
+                    <graphic>
+                        <ImageView fx:id="iconSalir" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="image-view">
+                            <image>
+                                <Image url="@images/Saliricono.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- CONTENIDO CENTRAL -->
+    <center>
+        <VBox prefHeight="900.0" prefWidth="1103.0" spacing="20" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="20" left="20" right="20" top="20" />
+            </padding>
+            <Label fx:id="lblTitulo" prefHeight="35.0" prefWidth="822.0" styleClass="titulo-admin" text="PLATILLOS" />
+            <VBox prefHeight="94.0" prefWidth="773.0" spacing="10" style="-fx-padding: 10;">
+                <Label prefHeight="29.0" prefWidth="600.0" styleClass="subtitulo-admin" text="AÑADIR PLATILLO" />
+                <HBox spacing="10">
+                    <TextField fx:id="txtNombrePlatillo" promptText="Nombre" styleClass="text-field" />
+                    <TextField fx:id="txtPrecioPlatillo" promptText="Precio" styleClass="text-field" />
+                    <TextField fx:id="txtDescripcionPlatillo" promptText="Descripción" styleClass="text-field" />
+                    <ComboBox fx:id="comboCategoriaPlatillo" prefWidth="150.0" promptText="Categoría" />
+                    <Button fx:id="btnAnadir" text="Añadir ahora" />
+                </HBox>
+            </VBox>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="966.0" styleClass="info-admin" text="MENU PLATILLOS">
+                <font>
+                    <Font size="22.0" />
+                </font>
+            </Label>
+            <TableView fx:id="tablaPlatillos" cacheShape="true" fixedCellSize="30.0" focusTraversable="true" prefHeight="354.0" prefWidth="552.0" tableMenuButtonVisible="true">
+                <columns>
+                    <TableColumn fx:id="colNombrePlatillo" editable="false" prefWidth="204.0" text="Platillo" />
+                    <TableColumn fx:id="colPrecioPlatillo" prefWidth="193.0" text="Precio" />
+                    <TableColumn fx:id="colDescripcionPlatillo" prefWidth="193.0" text="Descripcion" />
+                    <TableColumn fx:id="colCategoriaPlatillo" prefWidth="198.0" text="Categoría" />
+                </columns>
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                </columnResizePolicy>
+            </TableView>
+            <HBox alignment="CENTER_RIGHT" spacing="10" styleClass="hbox">
+                <Button fx:id="btnActualizar" prefHeight="35.0" prefWidth="128.0" text="ACTUALIZAR" />
+                <Button fx:id="btnEditar" prefHeight="30.0" prefWidth="98.0" text="EDITAR" />
+                <Button fx:id="btnEliminar" prefHeight="35.0" prefWidth="117.0" text="ELIMINAR" />
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

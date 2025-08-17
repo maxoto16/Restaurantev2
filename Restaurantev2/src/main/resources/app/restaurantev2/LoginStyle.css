@@ -1,0 +1,144 @@
+.root {
+    -fx-font-family: "Playfair Display", "Georgia", serif;
+    -fx-font-size: 15px;
+    -fx-background-color: #181818;
+}
+
+/* Imagen lateral */
+.image-pane {
+    -fx-background-color: #181818;
+}
+
+.side-image {
+    -fx-effect: dropshadow(gaussian, #00000077, 16, 0.18, 0, 2);
+    -fx-border-radius: 14;
+}
+
+/* Formulario: fondo negro elegante, líneas delgadas */
+.vbox {
+    -fx-background-color: #191919;
+    -fx-background-radius: 18;
+    -fx-border-radius: 18;
+    -fx-border-width: 1;
+    -fx-border-color: #A67C52;
+    -fx-padding: 38 34 38 34;
+    -fx-spacing: 18;
+    -fx-effect: dropshadow(gaussian, #00000088, 14, 0.20, 0, 2);
+}
+
+/* Títulos elegantes */
+.titulo-bienvenido {
+    -fx-font-family: "Playfair Display", "Georgia", serif;
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #EAC282;
+    -fx-effect: dropshadow(gaussian, #A67C52, 4, 0.12, 0, 1);
+    -fx-padding: 0 0 8 0;
+    -fx-alignment: center;
+    -fx-letter-spacing: 1px;
+}
+
+.subtitulo-bienvenido {
+    -fx-font-family: "Playfair Display", "Georgia", serif;
+    -fx-font-size: 15px;
+    -fx-text-fill: #ccb892;
+    -fx-font-weight: normal;
+    -fx-alignment: center;
+    -fx-padding: 0 0 4 0;
+    -fx-letter-spacing: 0.3px;
+}
+
+.label-campo {
+    -fx-font-family: "Playfair Display", "Georgia", serif;
+    -fx-font-size: 13px;
+    -fx-text-fill: #F6E7C1;
+    -fx-font-weight: bold;
+    -fx-padding: 5 0 1 0;
+}
+
+/* Campos de texto: líneas finas, sobrios */
+.text-field-login, .password-field-login {
+    -fx-font-family: "Georgia", serif;
+    -fx-background-color: #232323;
+    -fx-border-color: #A67C52;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-text-fill: #EAC282;
+    -fx-font-size: 15px;
+    -fx-padding: 8 12 8 12;
+}
+
+.text-field-login:focused, .password-field-login:focused {
+    -fx-border-color: #EAC282;
+    -fx-background-color: #1C1814;
+}
+
+/* Mensaje de error */
+.error-label-login {
+    -fx-font-family: "Georgia", serif;
+    -fx-text-fill: #D85B38;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-background-color: rgba(180,80,60,0.15);
+    -fx-padding: 3 0 3 0;
+    -fx-border-radius: 5;
+    -fx-alignment: center;
+}
+
+/* Enlace "Olvidaste tu contraseña" */
+.hyperlink-login {
+    -fx-font-family: "Playfair Display", "Georgia", serif;
+    -fx-text-fill: #C19A6B;
+    -fx-font-size: 12px;
+    -fx-underline: true;
+    -fx-font-style: italic;
+}
+
+/* Checkbox y label recordar */
+.checkbox-login {
+    -fx-background-color: #EAC282;
+    -fx-border-radius: 7;
+    -fx-border-width: 1;
+}
+.label-recordar-login {
+    -fx-font-family: "Playfair Display", "Georgia", serif;
+    -fx-font-size: 11px;
+    -fx-text-fill: #EAC282;
+    -fx-font-weight: medium;
+}
+
+/* Botón login: color sólido que contrasta y elegante */
+.botonmenu {
+    -fx-font-family: "Playfair Display", "Georgia", serif;
+    -fx-background-color: #A67C52;
+    -fx-text-fill: #fff5e1;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #EAC282;
+    -fx-border-width: 1.2;
+    -fx-effect: dropshadow(gaussian, #A67C52, 2, 0.09, 0, 1);
+    -fx-padding: 8 0 8 0;
+    -fx-cursor: hand;
+    -fx-letter-spacing: 1px;
+    -fx-transition: none;
+}
+
+.botonmenu:hover {
+    -fx-background-color: #8C6A44;
+    -fx-effect: dropshadow(gaussian, #EAC28299, 10, 0.15, 0, 2);
+    -fx-text-fill: #fff5e1;
+}
+
+.hbox {
+    -fx-spacing: 8;
+    -fx-padding: 0 0 0 8;
+}
+
+.icono-campo {
+    -fx-fit-width: 20px;
+    -fx-fit-height: 20px;
+    -fx-padding: 0 7 0 0;
+}

@@ -1,0 +1,170 @@
+.root {
+    -fx-font-family: "Playfair Display", "Georgia", serif;
+    -fx-font-size: 15px;
+    -fx-background-color: #181818;
+}
+
+/* MENÚ LATERAL */
+.vbox {
+    -fx-background-color: #191919;
+    -fx-background-radius: 0 24 24 0;
+    -fx-border-radius: 0 24 24 0;
+    -fx-border-width: 0 1.5px 0 0;
+    -fx-border-color: #A67C52;
+    -fx-padding: 18 20 18 20;
+    -fx-effect: dropshadow(gaussian, #00000077, 12, 0.16, 0, 3);
+}
+
+.menu-box {
+    -fx-padding: 8 0 0 0;
+}
+
+/* Logo e iconos png */
+.image-view {
+    -fx-effect: dropshadow(gaussian, #A67C52, 4, 0.12, 0, 2);
+    -fx-transition: all 0.4s;
+    -fx-alignment: center-left;
+}
+
+/* Nombre debajo de la foto */
+.admin-label {
+    -fx-font-family: "Playfair Display", "Georgia", serif;
+    -fx-font-size: 19px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fffbe8;
+    -fx-padding: 8 0 8 0;
+    -fx-alignment: center;
+}
+
+/* Animación iconos menú */
+.button:hover .image-view {
+    -fx-scale-x: 1.16;
+    -fx-scale-y: 1.16;
+    -fx-effect: dropshadow(gaussian, #EAC282bb, 8, 0.20, 0, 2);
+}
+
+/* Botones menú lateral */
+.button {
+    -fx-background-color: #A67C52;
+    -fx-text-fill: #fff5e1;
+    -fx-font-size: 15px;
+    -fx-font-family: "Playfair Display", "Georgia", serif;
+    -fx-font-weight: bold;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #EAC282;
+    -fx-border-width: 1.3px;
+    -fx-effect: dropshadow(gaussian, #A67C52, 2, 0.09, 0, 1);
+    -fx-padding: 10 0 10 20;
+    -fx-cursor: hand;
+    -fx-letter-spacing: 0.8px;
+    -fx-transition: none;
+    -fx-content-display: LEFT;
+}
+.button:hover {
+    -fx-background-color: #8C6A44;
+    -fx-effect: dropshadow(gaussian, #EAC28299, 10, 0.15, 0, 2);
+    -fx-text-fill: #fff5e1;
+}
+
+#btnSalir {
+    -fx-background-color: #D85B38;
+    -fx-border-color: #D85B38;
+    -fx-text-fill: #fff5e1;
+}
+#btnSalir:hover {
+    -fx-background-color: #a93b1c;
+    -fx-border-color: #a93b1c;
+}
+
+/* CENTRO DEL ADMIN */
+.center .vbox {
+    -fx-background-color: transparent;
+    -fx-padding: 30 30 30 30;
+}
+
+.titulo-admin, #lblTitulo {
+    -fx-font-family: "Playfair Display", "Georgia", serif;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #EAC282;
+    -fx-padding: 0 0 12 0;
+    -fx-effect: dropshadow(gaussian, #A67C52, 4, 0.12, 0, 1);
+    -fx-background-color: transparent;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: #A67C52;
+}
+
+.subtitulo-admin {
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #EAC282;
+    -fx-border-color: #A67C52;
+    -fx-border-width: 0 0 1px 0;
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 7 0;
+}
+
+.info-admin {
+    -fx-font-family: "Georgia", serif;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #EAC282;
+    -fx-background-color: #232323;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: #A67C52;
+    -fx-background-radius: 9;
+    -fx-border-radius: 9;
+    -fx-padding: 7 0 7 0;
+}
+
+/* TextFields de registro */
+.text-field {
+    -fx-background-color: #232323;
+    -fx-border-color: #A67C52;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-text-fill: #EAC282;
+    -fx-font-size: 15px;
+    -fx-font-family: "Georgia", serif;
+    -fx-padding: 6 10 6 10;
+}
+.text-field:focused {
+    -fx-border-color: #EAC282;
+    -fx-background-color: #1C1814;
+}
+
+/* Botón de añadir y acciones */
+#btnAnadircategoria, #btnActualizar, #btnEditar, #btnEliminar {
+    -fx-background-color: #A67C52;
+    -fx-text-fill: #fff5e1;
+    -fx-font-size: 15px;
+    -fx-font-family: "Playfair Display", "Georgia", serif;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #EAC282;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, #A67C52, 2, 0.09, 0, 1);
+    -fx-padding: 8 0 8 0;
+    -fx-cursor: hand;
+    -fx-letter-spacing: 0.7px;
+    -fx-transition: none;
+}
+#btnAnadircategoria:hover, #btnActualizar:hover, #btnEditar:hover, #btnEliminar:hover {
+    -fx-background-color: #8C6A44;
+    -fx-effect: dropshadow(gaussian, #EAC28299, 10, 0.15, 0, 2);
+    -fx-text-fill: #fff5e1;
+}
+
+/* HBox contenedor de acciones */
+.hbox {
+    -fx-spacing: 10;
+    -fx-padding: 0 0 0 0;
+}
+
+/* Scroll para los paneles grandes */
+.scroll-pane {
+    -fx-background: transparent;
+}

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="rootPane"
+            prefHeight="700.0"
+            prefWidth="900.0"
+            styleClass="root"
+            stylesheets="@LoginStyle.css"
+            xmlns="http://javafx.com/javafx/24.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="app.restaurantev2.LoginController">
+
+    <!-- Imagen a la izquierda -->
+    <left>
+        <StackPane styleClass="image-pane" prefWidth="340">
+            <ImageView fx:id="sideImage"
+                       fitWidth="340"
+                       fitHeight="700"
+                       preserveRatio="true"
+                       styleClass="side-image"
+                       pickOnBounds="true">
+                <!-- Usa la imagen larga, ejemplo: images/cafe_largo.jpg -->
+                <image>
+                    <Image url="@images/coffe.jpeg"/>
+                </image>
+            </ImageView>
+        </StackPane>
+    </left>
+
+    <!-- Formulario a la derecha -->
+    <center>
+        <VBox fx:id="vboxLogin"
+              alignment="CENTER"
+              spacing="18.0"
+              styleClass="vbox"
+              prefWidth="400"
+              prefHeight="500">
+            <Label fx:id="labelBienvenido" text="BIENVENIDO" styleClass="titulo-bienvenido" />
+            <Label fx:id="labelSubtitulo" text="Acceso para Staff" styleClass="subtitulo-bienvenido" />
+            <Label fx:id="labelCorreo" text="Correo Electrónico" styleClass="label-campo" />
+            <TextField fx:id="emailField" promptText="Ingrese su correo electrónico" styleClass="text-field-login" />
+            <Label fx:id="labelClave" text="Contraseña" styleClass="label-campo" />
+            <PasswordField fx:id="passwordField" promptText="Ingrese su contraseña" styleClass="password-field-login" />
+            <Label fx:id="errorLabel" text="" visible="false" styleClass="error-label-login" />
+            <Hyperlink fx:id="hyperlinkOlvido" text="¿Olvidaste tu contraseña?" styleClass="hyperlink-login" />
+            <HBox alignment="CENTER_LEFT" spacing="8">
+                <CheckBox fx:id="rememberMe" styleClass="checkbox-login" />
+                <Label fx:id="labelRecordarme" text="Recordarme" styleClass="label-recordar-login" />
+            </HBox>
+            <Button fx:id="loginButton" onAction="#handleLogin" text="Log In" styleClass="botonmenu" />
+        </VBox>
+    </center>
+</BorderPane>

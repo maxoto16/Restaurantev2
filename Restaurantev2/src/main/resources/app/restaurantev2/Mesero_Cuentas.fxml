@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane cache="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" stylesheets="@MeseroStyle.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.restaurantev2.MeseroController">
+
+    <!-- MENÚ LATERAL -->
+    <left>
+        <VBox id="menuscroller" alignment="TOP_CENTER" cache="true" cacheHint="SCALE" prefHeight="900.0" prefWidth="370.0" spacing="15" styleClass="menuscroller">
+            <ImageView id="imagenlogo" fitHeight="235.0" fitWidth="221.0" pickOnBounds="true" preserveRatio="true" styleClass="imagenlogo">
+                <image>
+                    <Image url="@images/adminlogo.png" />
+                </image>
+            </ImageView>
+            <Label id="TITULOPANEL" fx:id="lblTitulo1" alignment="CENTER" contentDisplay="CENTER" prefHeight="60.0" prefWidth="1147.0" styleClass="TITULOMENU" text="MESERO">
+                <font>
+                    <Font name="Georgia Bold Italic" size="23.0" />
+                </font>
+            </Label>
+
+            <VBox id="cajamenu" alignment="TOP_CENTER" prefHeight="448.0" prefWidth="375.0" spacing="30.0" styleClass="cajamenu">
+
+                <Button fx:id="btnHorariolaboral" alignment="BASELINE_LEFT" prefHeight="85.0" prefWidth="460.0" style="-fx-border-color: white; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-width: 2 2 2 2; -fx-label-padding: 20;" text="   Inicio">
+                    <font>
+                        <Font name="Corbel" size="12.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/mesasicono.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnMesasasignadas" alignment="BASELINE_LEFT" prefHeight="85.0" prefWidth="460.0" style="-fx-border-color: WHITE; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-width: 2 2 2 2; -fx-label-padding: 20;" text="   Nueva Orden">
+                    <font>
+                        <Font name="Corbel" size="12.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="55.0" fitWidth="122.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/Estadisticasicono.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnTomarorden" alignment="BASELINE_LEFT" prefHeight="85.0" prefWidth="460.0" style="-fx-border-color: white; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-width: 2 2 2 2; -fx-label-padding: 20;" text="   Cuentas">
+                    <font>
+                        <Font name="Corbel" size="12.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/CategoriaIcono.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <InnerShadow choke="0.4" radius="37.25" width="130.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                     <input>
+                        <InnerShadow />
+                     </input>
+                  </InnerShadow>
+               </effect>
+                </Button>
+
+            </VBox>
+            <Button fx:id="btnSalir" alignment="BASELINE_LEFT" prefHeight="80.0" prefWidth="250.0" style="-fx-background-radius: 10px; -fx-border-radius: 10px; -fx-label-padding: 20; -fx-background-color: red;" text="Salir">
+                <graphic>
+                    <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@images/Saliricono.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+
+        </VBox>
+    </left>
+    <center>
+        <VBox id="inicioMesero" alignment="TOP_CENTER" prefHeight="800.0" prefWidth="854.0" styleClass="inicioMesero">
+            <children>
+                <Pane prefHeight="846.0" prefWidth="1230.0">
+                    <children>
+                        <VBox id="cajapanel" alignment="TOP_CENTER" cache="true" cacheHint="SCALE" layoutX="40.0" layoutY="84.0" prefHeight="770.0" prefWidth="1167.0" style="-fx-border-radius: 15; -fx-background-color: grey; -fx-background-radius: 15;" styleClass="cajapanel">
+                            <children>
+                                <Pane id="panelmesero" cache="true" cacheHint="SCALE" prefHeight="880.0" prefWidth="1117.0" styleClass="panelmesero">
+                                    <children>
+
+                                        <TableView fx:id="tablaMesas" cacheShape="true" fixedCellSize="30.0" focusTraversable="true" layoutX="1.0" layoutY="11.0" prefHeight="186.0" prefWidth="604.0" tableMenuButtonVisible="true">
+                                            <columns>
+                                                <TableColumn fx:id="colNumero" editable="false" prefWidth="200.0" style="-fx-font-size: 20px; -fx-text-fill: black;" />
+                                                <TableColumn fx:id="colCapacidad" editable="false" prefWidth="200.0" style="-fx-font-size: 20px; -fx-text-fill: black;" />
+                                                <TableColumn fx:id="colArea" minWidth="0.0" prefWidth="200.0" style="-fx-font-size: 20px; -fx-text-fill: black;" />
+                                            </columns>
+                                            <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                            </columnResizePolicy>
+                                            <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                            </cursor>
+                                        </TableView>
+                                        <TableView fx:id="tablaMesas1" cacheShape="true" fixedCellSize="30.0" focusTraversable="true" layoutX="637.0" layoutY="10.0" prefHeight="641.0" prefWidth="439.0" tableMenuButtonVisible="true">
+                                            <columns>
+                                                <TableColumn fx:id="colNumero1" editable="false" prefWidth="200.0" style="-fx-font-size: 20px; -fx-text-fill: black;" />
+                                                <TableColumn fx:id="colCapacidad1" editable="false" prefWidth="200.0" style="-fx-font-size: 20px; -fx-text-fill: black;" />
+                                                <TableColumn fx:id="colArea1" minWidth="0.0" prefWidth="200.0" style="-fx-font-size: 20px; -fx-text-fill: black;" />
+                                            </columns>
+                                            <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                            </columnResizePolicy>
+                                            <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                            </cursor>
+                                        </TableView>
+                                    </children>
+                                </Pane>
+                            </children>
+                        </VBox>
+
+                        <Label id="TITULOPANEL" fx:id="lblTitulo" alignment="CENTER" contentDisplay="CENTER" layoutX="4.0" layoutY="-6.0" prefHeight="71.0" prefWidth="1230.0" styleClass="TITULOPANEL" text="INICIO" textAlignment="CENTER" textOverrun="CLIP">
+                            <font>
+                                <Font size="17.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </Pane>
+            </children>
+        </VBox>
+    </center>
+</BorderPane>

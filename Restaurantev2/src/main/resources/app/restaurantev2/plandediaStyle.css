@@ -1,0 +1,37 @@
+.root {
+    -fx-font-family: "Lato", sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: #cecfce;
+}
+.vbox {
+    -fx-background-color: #a0b6a1;
+}
+
+/* Estilo de todos los botones */
+.button {
+    -fx-background-color:  #83A492;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+}
+
+/* Tabla de datos */
+.table-view {
+    -fx-border-color: #cccccc;
+    -fx-background-color: #f7f7f7;
+}
+
+.table-column {
+    -fx-alignment: CENTER;
+}
+.txtNumeroMesa{
+    -fx-text-fill: #333333;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+.txtEscribeCategoria{
+    -fx-text-fill: #333333;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
