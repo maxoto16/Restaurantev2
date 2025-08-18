@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="rootPane" prefHeight="900.0" prefWidth="1600.0"
+            xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="app.restaurantev2.ModificacionController"
+            stylesheets="@modificacion.css">
+
+    <top>
+        <Label fx:id="lblTitulo" text="MODIFICACIÓN DE CUENTA" alignment="CENTER" prefHeight="70.0" prefWidth="1600.0"/>
+    </top>
+    <center>
+        <VBox alignment="TOP_CENTER" spacing="18" prefWidth="1200.0">
+            <HBox spacing="24">
+                <Label fx:id="lblMesa" text="Mesa: " />
+                <Label fx:id="lblEstado" text="Estado: " />
+            </HBox>
+            <TableView fx:id="tablaDetallesCuenta" prefHeight="300.0" prefWidth="900.0">
+                <columns>
+                    <TableColumn fx:id="colPlatillo" text="Platillo" prefWidth="300.0"/>
+                    <TableColumn fx:id="colCantidad" text="Cantidad" prefWidth="120.0"/>
+                    <TableColumn fx:id="colPrecio" text="Precio" prefWidth="120.0"/>
+                </columns>
+            </TableView>
+            <HBox spacing="16">
+                <Button fx:id="btnAgregarPlatillo" text="Agregar Platillo" prefWidth="160.0"/>
+                <Button fx:id="btnEditarPlatillo" text="Editar Platillo" prefWidth="160.0"/>
+                <Button fx:id="btnEliminarPlatillo" text="Eliminar Platillo" prefWidth="160.0"/>
+            </HBox>
+            <Button fx:id="btnEnviarModificacion" text="Enviar Modificación" prefWidth="220.0" style="-fx-font-weight:bold;"/>
+            <Button fx:id="btnRegresar" text="Regresar" prefWidth="220.0"/>
+        </VBox>
+    </center>
+</BorderPane>
