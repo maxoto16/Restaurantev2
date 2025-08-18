@@ -1,63 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
-<BorderPane id="root" fx:id="rootPane" prefHeight="900.0" prefWidth="1600.0" styleClass="root" stylesheets="@MeseroStyle.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.restaurantev2.MeseroController">
+<BorderPane fx:id="rootPane" id="root" prefHeight="900.0" prefWidth="1600.0"
+            xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="app.restaurantev2.MeseroController">
 
-    <!-- MENÚ LATERAL -->
     <left>
-        <VBox alignment="TOP_CENTER" prefHeight="900.0" prefWidth="370.0" spacing="15" styleClass="menuscroller">
-            <ImageView fx:id="imagenlogo" fitHeight="235.0" fitWidth="221.0" pickOnBounds="true" preserveRatio="true" styleClass="imagenlogo">
-                <image>
-                    <Image url="@images/adminlogo.png" />
-                </image>
-            </ImageView>
-            <Label fx:id="lblTitulo1" alignment="CENTER" prefHeight="60.0" prefWidth="370.0" styleClass="TITULOMENU" text="MESERO">
-                <font>
-                    <Font name="Georgia Bold Italic" size="23.0" />
-                </font>
-            </Label>
-            <VBox alignment="TOP_CENTER" prefHeight="448.0" prefWidth="375.0" spacing="30.0" styleClass="cajamenu">
-                <Button fx:id="btnHorariolaboral" prefHeight="85.0" prefWidth="370.0" styleClass="button" text="Inicio" />
-                <Button fx:id="btnMesasasignadas" prefHeight="85.0" prefWidth="370.0" styleClass="button" text="Nueva Orden" />
-                <Button fx:id="btnTomarorden" prefHeight="85.0" prefWidth="370.0" styleClass="button" text="Cobrar Orden" />
+        <VBox alignment="TOP_CENTER" prefHeight="900.0" prefWidth="370.0" spacing="15">
+            <ImageView fx:id="imagenlogo" fitHeight="235.0" fitWidth="221.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="lblTitulo1" alignment="CENTER" prefHeight="60.0" prefWidth="370.0" text="MESERO" />
+            <VBox alignment="TOP_CENTER" prefHeight="448.0" prefWidth="375.0" spacing="30.0">
+                <Button fx:id="btnHorariolaboral" prefHeight="85.0" prefWidth="370.0" text="Inicio" />
+                <Button fx:id="btnMesasasignadas" prefHeight="85.0" prefWidth="370.0" text="Nueva Orden" />
+                <Button fx:id="btnTomarorden" prefHeight="85.0" prefWidth="370.0" text="Cobrar Orden" />
             </VBox>
-            <Button fx:id="btnSalir" prefHeight="80.0" prefWidth="250.0" styleClass="button" text="Salir" />
+            <Button fx:id="btnSalir" prefHeight="80.0" prefWidth="250.0" text="Salir" />
         </VBox>
     </left>
+
     <center>
-        <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="1230.0" styleClass="inicioMesero">
-            <Label fx:id="lblTitulo" alignment="CENTER" prefHeight="71.0" prefWidth="1230.0" style="-fx-background-color: GREY;" styleClass="TITULOPANEL" text="INICIO" />
-            <Pane prefHeight="846.0" prefWidth="1230.0" style="-fx-background-color: black;">
-                <VBox alignment="TOP_CENTER" layoutX="36.0" layoutY="32.0" prefHeight="764.0" prefWidth="1167.0" style="-fx-background-color: GRAY;" styleClass="cajapanel">
-                    <Pane prefHeight="660.0" prefWidth="1123.0" style="-fx-background-color: #b6b6b6;" styleClass="panelmesero">
-                        <TableView fx:id="tablaAsignacionesMesas" layoutX="14.0" layoutY="12.0" prefHeight="222.0" prefWidth="602.0">
-                            <columns>
-                                <TableColumn fx:id="colNombreMesero" prefWidth="190.0" text="Mesero" />
-                                <TableColumn fx:id="colNumeroMesa" prefWidth="214.0" text="Mesa" />
-                                <TableColumn fx:id="colEstadoMesa" prefWidth="198.0" text="Estado" />
-                            </columns>
-                        </TableView>
-                        <TableView fx:id="tablaTurnosAsignados" layoutX="640.0" layoutY="14.0" prefHeight="113.0" prefWidth="467.0">
-                            <columns>
-                                <TableColumn fx:id="colFechaTurno" prefWidth="166.0" text="Horario" />
-                                <TableColumn fx:id="colHoraInicio" prefWidth="136.0" text="Entrada" />
-                                <TableColumn fx:id="colHoraFin" prefWidth="165.0" text="Salida" />
-                            </columns>
-                        </TableView>
-                        <TableView fx:id="tablaSolicitudesModificacion" layoutX="20.0" layoutY="310.0" prefHeight="222.0" prefWidth="602.0">
-                            <columns>
-                                <TableColumn fx:id="colMesaSolicitud" prefWidth="160.0" text="Mesa" />
-                                <TableColumn fx:id="colAreaSolicitud" minWidth="0.0" prefWidth="216.0" text="Area" />
-                                <TableColumn fx:id="colEstadoSolicitud" prefWidth="226.0" text="Solicitud" />
-                            </columns>
-                        </TableView>
-                    </Pane>
+        <VBox alignment="TOP_CENTER" prefHeight="900.0" prefWidth="1230.0" spacing="28">
+            <Label fx:id="lblTitulo" alignment="CENTER" prefHeight="77.0" prefWidth="1161.0" text="DATOS DEL MESERO" />
+
+            <HBox spacing="32">
+                <!-- MESAS ASIGNADAS -->
+                <VBox spacing="10">
+                    <Label alignment="CENTER" prefHeight="48.0" prefWidth="290.0" text="MESAS ASIGNADAS" />
+                    <TableView fx:id="tablaAsignacionesMesas" prefHeight="220.0" prefWidth="420.0">
+                        <columns>
+                            <TableColumn fx:id="colNombreMesero" prefWidth="120.0" text="Mesero" />
+                            <TableColumn fx:id="colNumeroMesa" prefWidth="90.0" text="Mesa" />
+                            <TableColumn fx:id="colEstadoMesa" prefWidth="110.0" text="Estado" />
+                        </columns>
+                    </TableView>
                 </VBox>
-            </Pane>
+                <!-- TURNOS ASIGNADOS -->
+                <VBox spacing="10">
+                    <Label alignment="CENTER" prefHeight="48.0" prefWidth="290.0" text="TURNOS ASIGNADOS" />
+                    <TableView fx:id="tablaTurnosAsignados" prefHeight="220.0" prefWidth="420.0">
+                        <columns>
+                            <TableColumn fx:id="colTurno" prefWidth="120.0" text="Turno" />
+                            <TableColumn fx:id="colHoraInicio" prefWidth="90.0" text="Hora Inicio" />
+                            <TableColumn fx:id="colHoraFin" prefWidth="110.0" text="Hora Fin" />
+                        </columns>
+                    </TableView>
+                </VBox>
+                <!-- SOLICITUDES DE MODIFICACIÓN, CON BOTÓN EDITAR -->
+                <VBox spacing="10">
+                    <Label alignment="CENTER" prefHeight="48.0" prefWidth="290.0" text="SOLICITUDES DE MODIFICACIÓN" />
+                    <HBox spacing="10">
+                        <TableView fx:id="tablaSolicitudesModificacion" prefHeight="220.0" prefWidth="420.0">
+                            <columns>
+                                <TableColumn fx:id="colMesaSolicitud" prefWidth="90.0" text="Mesa" />
+                                <TableColumn fx:id="colAreaSolicitud" prefWidth="100.0" text="Área" />
+                                <TableColumn fx:id="colEstadoSolicitud" prefWidth="110.0" text="Estado" />
+                            </columns>
+                        </TableView>
+                        <VBox spacing="10">
+                            <Button fx:id="btnEditarCuenta" text="Editar Cuenta" prefWidth="120.0" prefHeight="40.0"/>
+                        </VBox>
+                    </HBox>
+                </VBox>
+            </HBox>
         </VBox>
     </center>
 </BorderPane>

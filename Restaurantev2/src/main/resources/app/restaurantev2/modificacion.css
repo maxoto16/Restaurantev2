@@ -1,0 +1,60 @@
+.root {
+    -fx-background-color: #f5f6fa;
+}
+
+.label {
+    -fx-font-size: 20px;
+    -fx-text-fill: #2f3640;
+    -fx-font-weight: bold;
+}
+
+#lblTitulo {
+    -fx-font-size: 32px;
+    -fx-text-fill: #273c75;
+    -fx-font-weight: bold;
+    -fx-padding: 25 0 25 0;
+}
+
+.table-view {
+    -fx-background-color: #fff;
+    -fx-border-color: #dcdde1;
+    -fx-border-radius: 5px;
+    -fx-effect: dropshadow(gaussian, #dcdde1, 10, 0, 0, 1);
+    -fx-font-size: 16px;
+}
+
+.table-column {
+    -fx-alignment: CENTER;
+    -fx-font-size: 16px;
+}
+
+.button {
+    -fx-background-color: #4078c0;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-font-size: 16px;
+    -fx-effect: dropshadow(gaussian, #dcdde1, 3, 0, 0, 1);
+}
+
+.button:hover {
+    -fx-background-color: #2980b9;
+}
+
+#btnEnviarModificacion {
+    -fx-background-color: #44bd32;
+    -fx-font-size: 18px;
+}
+
+#btnEnviarModificacion:hover {
+    -fx-background-color: #218c2b;
+}
+
+#btnRegresar {
+    -fx-background-color: #e84118;
+    -fx-font-size: 18px;
+}
+
+#btnRegresar:hover {
+    -fx-background-color: #c23616;
+}
