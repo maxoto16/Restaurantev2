@@ -194,14 +194,14 @@ public class MeseroController {
     private void editarCuenta() {
         SolicitudModificacion solicitud = tablaSolicitudesModificacion.getSelectionModel().getSelectedItem();
         if (solicitud == null) {
-            mostrarAlerta("Selecciona una solicitud para editar.");
+            mostrarAlerta("Error", "Selecciona una solicitud para editar.");
             return;
         }
         if (!"ACEPTADA".equalsIgnoreCase(solicitud.getEstadoSolicitud())) {
-            mostrarAlerta("La solicitud debe estar en estado 'ACEPTADA' para editar la cuenta.");
+            mostrarAlerta("Error", "La solicitud debe estar en estado 'ACEPTADA' para editar la cuenta.");
             return;
         }
-        ModificacionController.idCuentaEditar = solicitud.getIdCuenta;
+        ModificacionController.idCuentaEditar = solicitud.getIdCuenta();
 
         try {
             Stage stage = (Stage) rootPane.getScene().getWindow();

@@ -103,19 +103,17 @@ public class ModificacionController {
     }
 
     private void agregarPlatillo() {
-        // Aquí puedes abrir un dialog para seleccionar platillo y cantidad
-        mostrarAlerta("Funcionalidad de agregar platillo pendiente de implementación.");
+        mostrarAlerta("Agregar Platillo", "Funcionalidad de agregar platillo pendiente de implementación.");
     }
 
     private void editarPlatillo() {
-        // Aquí puedes abrir un dialog para editar cantidad de platillo seleccionado
-        mostrarAlerta("Funcionalidad de editar platillo pendiente de implementación.");
+        mostrarAlerta("Editar Platillo", "Funcionalidad de editar platillo pendiente de implementación.");
     }
 
     private void eliminarPlatillo() {
         DetalleCuenta detalle = tablaDetallesCuenta.getSelectionModel().getSelectedItem();
         if (detalle == null) {
-            mostrarAlerta("Selecciona un platillo para eliminar.");
+            mostrarAlerta("Eliminar Platillo", "Selecciona un platillo para eliminar.");
             return;
         }
         String sql = "DELETE FROM DETALLES_CUENTA WHERE ID_DETALLE = ?";
@@ -124,15 +122,14 @@ public class ModificacionController {
             pstmt.setInt(1, detalle.getIdDetalle());
             pstmt.executeUpdate();
             cargarDatosCuenta();
-            mostrarAlerta("Platillo eliminado correctamente.");
+            mostrarAlerta("Platillo eliminado", "Platillo eliminado correctamente.");
         } catch (Exception e) {
             mostrarAlerta("Error", "No se pudo eliminar el platillo: " + e.getMessage());
         }
     }
 
     private void enviarModificacion() {
-        // Aquí deberías actualizar la solicitud de modificación en la base de datos
-        mostrarAlerta("Funcionalidad de enviar modificación pendiente de implementación.");
+        mostrarAlerta("Enviar Modificación", "Funcionalidad de enviar modificación pendiente de implementación.");
     }
 
     private void regresar() {
