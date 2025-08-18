@@ -23,6 +23,11 @@ public class LoginController {
 
     private final MainApp.ConexionBaseDatos db = new MainApp.ConexionBaseDatos();
 
+    // Variable estática para guardar el ID del usuario logueado
+    public static int currentUserId = -1;
+    public static String currentUserName = "";
+    public static String currentUserRol = "";
+
     @FXML
     private void handleLogin() {
         String email = emailField.getText().trim();
@@ -34,10 +39,14 @@ public class LoginController {
             return;
         }
 
-        String rol = db.obtenerRolSiCredencialesValidas(email, password);
+        // Consulta el usuario por correo y contraseña
+        UsuarioLogin usuario = db.obtenerUsuarioLogin(email, password);
 
-        if (rol != null) {
+        if (usuario != null && usuario.rol != null) {
             errorLabel.setVisible(false);
+            currentUserId = usuario.idUsuario;
+            currentUserName = usuario.nombre;
+            currentUserRol = usuario.rol;
 
             Stage stageActual = (Stage) emailField.getScene().getWindow();
             stageActual.close();
@@ -47,15 +56,15 @@ public class LoginController {
                 Parent root;
                 Scene scene;
 
-                if (rol.equalsIgnoreCase("ADMIN")) {
+                if (usuario.rol.equalsIgnoreCase("ADMIN")) {
                     root = FXMLLoader.load(getClass().getResource("/app/restaurantev2/Admin.fxml"));
                     scene = new Scene(root, 1600, 900);
                     nuevoStage.setTitle("Admin - Restaurante");
-                } else if (rol.equalsIgnoreCase("LIDER_MESERO")) {
+                } else if (usuario.rol.equalsIgnoreCase("LIDER_MESERO")) {
                     root = FXMLLoader.load(getClass().getResource("/app/restaurantev2/LiderMeseros.fxml"));
                     scene = new Scene(root, 1600, 900);
                     nuevoStage.setTitle("Líder de Mesero - Restaurante");
-                } else if (rol.equalsIgnoreCase("MESERO")) {
+                } else if (usuario.rol.equalsIgnoreCase("MESERO")) {
                     root = FXMLLoader.load(getClass().getResource("/app/restaurantev2/Mesero.fxml"));
                     scene = new Scene(root, 1600, 900);
                     nuevoStage.setTitle("Mesero - Restaurante");
@@ -76,6 +85,19 @@ public class LoginController {
         } else {
             errorLabel.setText("Correo o contraseña inválidos o usuario inactivo.");
             errorLabel.setVisible(true);
+        }
+    }
+
+    // Estructura para el usuario logueado
+    public static class UsuarioLogin {
+        public int idUsuario;
+        public String nombre;
+        public String rol;
+
+        public UsuarioLogin(int idUsuario, String nombre, String rol) {
+            this.idUsuario = idUsuario;
+            this.nombre = nombre;
+            this.rol = rol;
         }
     }
 }

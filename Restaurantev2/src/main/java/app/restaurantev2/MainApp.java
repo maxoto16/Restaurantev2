@@ -49,6 +49,26 @@ public class MainApp extends Application {
             }
             return conexion;
         }
+        public LoginController.UsuarioLogin obtenerUsuarioLogin(String email, String password) {
+            String sql = "SELECT ID_USUARIO, NOMBRE, ROL FROM USUARIOS WHERE CORREO = ? AND CONTRASENA = ? AND ESTADO = 'ACTIVO'";
+            try (PreparedStatement stmt = obtenerConexion().prepareStatement(sql)) {
+                stmt.setString(1, email);
+                stmt.setString(2, password);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    if (rs.next()) {
+                        return new LoginController.UsuarioLogin(
+                                rs.getInt("ID_USUARIO"),
+                                rs.getString("NOMBRE"),
+                                rs.getString("ROL")
+                        );
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("Error al validar credenciales.");
+                e.printStackTrace();
+            }
+            return null;
+        }
 
         public void cerrarConexion() {
             try {
