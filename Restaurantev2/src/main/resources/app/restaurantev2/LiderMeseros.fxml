@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
@@ -8,30 +7,46 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane cache="true" prefHeight="900.0" prefWidth="1600.0" stylesheets="@lidermeserosStyle.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.restaurantev2.LiderMeserosController">
+<BorderPane fx:id="rootPane" cache="true" prefHeight="900.0" prefWidth="1600.0"
+            stylesheets="@lidermeserosStyle.css"
+            xmlns="http://javafx.com/javafx/24.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="app.restaurantev2.LiderMeserosController">
 
     <!-- MENÚ LATERAL -->
     <left>
-        <VBox id="menuscroller" alignment="TOP_CENTER" cache="true" cacheHint="SCALE" prefHeight="900.0" prefWidth="370.0" spacing="15" styleClass="menuscroller">
-            <ImageView id="imagenlogo" fitHeight="235.0" fitWidth="221.0" pickOnBounds="true" preserveRatio="true" styleClass="imagenlogo">
+        <VBox id="menuscroller" alignment="TOP_CENTER" cache="true" cacheHint="SCALE"
+              prefHeight="900.0" prefWidth="370.0" spacing="15"
+              styleClass="menuscroller">
+            <ImageView id="imagenlogo"
+                       fitHeight="235.0" fitWidth="221.0"
+                       pickOnBounds="true" preserveRatio="true"
+                       styleClass="imagenlogo">
                 <image>
                     <Image url="@images/adminlogo.png" />
                 </image>
             </ImageView>
-            <Label id="TITULOPANEL" fx:id="lblTitulo1" alignment="CENTER" contentDisplay="CENTER" prefHeight="60.0" prefWidth="1147.0" styleClass="TITULOMENU" text="Lider De Meseros">
+            <Label fx:id="lblTitulo1" id="TITULOPANEL"
+                   alignment="CENTER" contentDisplay="CENTER"
+                   prefHeight="60.0" prefWidth="1147.0"
+                   styleClass="TITULOMENU"
+                   text="Lider De Meseros">
                 <font>
                     <Font name="Georgia Bold Italic" size="23.0" />
                 </font>
             </Label>
-
-            <VBox id="cajamenu" alignment="TOP_CENTER" prefHeight="448.0" prefWidth="375.0" spacing="30.0" styleClass="cajamenu">
-
-                <Button fx:id="btninicio" alignment="BASELINE_LEFT" prefHeight="85.0" prefWidth="460.0" style="-fx-border-color: white; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-width: 2 2 2 2; -fx-label-padding: 20;" text="   Inicio">
+            <VBox id="cajamenu" alignment="TOP_CENTER"
+                  prefHeight="448.0" prefWidth="375.0" spacing="30.0"
+                  styleClass="cajamenu">
+                <Button fx:id="btninicio" alignment="BASELINE_LEFT"
+                        prefHeight="85.0" prefWidth="460.0"
+                        text="   Inicio">
                     <font>
                         <Font name="Corbel" size="12.0" />
                     </font>
                     <graphic>
-                        <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="55.0" fitWidth="55.0"
+                                   pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@images/mesasicono.png" />
                             </image>
@@ -40,23 +55,16 @@
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor>
-                    <effect>
-                        <InnerShadow choke="0.4" height="75.0" radius="50.75" width="130.0">
-                            <input>
-                                <InnerShadow />
-                            </input>
-                            <color>
-                                <Color red="1.0" green="1.0" blue="1.0" />
-                            </color>
-                        </InnerShadow>
-                    </effect>
                 </Button>
-                <Button fx:id="btnPlandedia" alignment="BASELINE_LEFT" prefHeight="85.0" prefWidth="460.0" style="-fx-border-color: WHITE; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-width: 2 2 2 2; -fx-label-padding: 20;" text="   Plan Del Dia">
+                <Button fx:id="btnPlandedia" alignment="BASELINE_LEFT"
+                        prefHeight="85.0" prefWidth="460.0"
+                        text="   Plan Del Dia">
                     <font>
                         <Font name="Corbel" size="12.0" />
                     </font>
                     <graphic>
-                        <ImageView fitHeight="55.0" fitWidth="122.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="55.0" fitWidth="122.0"
+                                   pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@images/Estadisticasicono.png" />
                             </image>
@@ -66,12 +74,15 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Button fx:id="btnHistorial" alignment="BASELINE_LEFT" prefHeight="85.0" prefWidth="460.0" style="-fx-border-color: white; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-width: 2 2 2 2; -fx-label-padding: 20;" text="  Historial">
+                <Button fx:id="btnHistorial" alignment="BASELINE_LEFT"
+                        prefHeight="85.0" prefWidth="460.0"
+                        text="  Historial">
                     <font>
                         <Font name="Corbel" size="12.0" />
                     </font>
                     <graphic>
-                        <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="55.0" fitWidth="55.0"
+                                   pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@images/CategoriaIcono.png" />
                             </image>
@@ -81,41 +92,66 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-
             </VBox>
-            <Button fx:id="btnSalir" alignment="BASELINE_LEFT" prefHeight="80.0" prefWidth="250.0" style="-fx-background-radius: 10px; -fx-border-radius: 10px; -fx-label-padding: 20; -fx-background-color: red;" text="Salir">
+            <Button fx:id="btnSalir" alignment="BASELINE_LEFT"
+                    prefHeight="80.0" prefWidth="250.0"
+                    text="Salir">
                 <graphic>
-                    <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fitHeight="55.0" fitWidth="55.0"
+                               pickOnBounds="true" preserveRatio="true">
                         <image>
                             <Image url="@images/Saliricono.png" />
                         </image>
                     </ImageView>
                 </graphic>
             </Button>
-
         </VBox>
     </left>
     <center>
-        <VBox id="inicioMesero" alignment="TOP_CENTER" prefHeight="900.0" prefWidth="854.0" styleClass="inicioMesero">
+        <VBox id="inicioMesero" alignment="TOP_CENTER"
+              prefHeight="900.0" prefWidth="854.0"
+              styleClass="inicioMesero">
             <children>
                 <Pane prefHeight="846.0" prefWidth="1230.0">
                     <children>
-                        <VBox id="cajapanel" alignment="TOP_CENTER" cache="true" cacheHint="SCALE" layoutX="40.0" layoutY="17.0" prefHeight="856.0" prefWidth="1167.0" style="-fx-border-radius: 15; -fx-background-color: grey; -fx-background-radius: 15;" styleClass="cajapanel">
+                        <VBox id="cajapanel" alignment="TOP_CENTER"
+                              cache="true" cacheHint="SCALE"
+                              layoutX="40.0" layoutY="17.0"
+                              prefHeight="856.0" prefWidth="1167.0"
+                              styleClass="cajapanel">
                             <children>
-                                <Label prefHeight="46.0" prefWidth="1083.0" text="Solicitudes De Meseros">
+                                <Label prefHeight="46.0" prefWidth="1083.0"
+                                       text="Solicitudes De Meseros">
                                     <font>
                                         <Font name="Century Gothic" size="36.0" />
                                     </font>
                                 </Label>
-                                <Pane id="panelmesero" cache="true" cacheHint="SCALE" prefHeight="791.0" prefWidth="1107.0" styleClass="panelmesero">
+                                <Pane id="panelmesero" cache="true" cacheHint="SCALE"
+                                      prefHeight="791.0" prefWidth="1107.0"
+                                      styleClass="panelmesero">
                                     <children>
-
-                                        <TableView fx:id="tablaSOLICITUDES_MODIFICACION" cacheShape="true" fixedCellSize="30.0" focusTraversable="true" layoutX="14.0" layoutY="26.0" prefHeight="336.0" prefWidth="894.0">
+                                        <TableView fx:id="tablaSOLICITUDES_MODIFICACION"
+                                                   cacheShape="true" fixedCellSize="30.0"
+                                                   focusTraversable="true"
+                                                   layoutX="14.0" layoutY="26.0"
+                                                   prefHeight="336.0" prefWidth="894.0">
                                             <columns>
-                                                <TableColumn fx:id="col_ID_CUENTA" editable="false" prefWidth="117.0" style="-fx-font-size: 20px; -fx-text-fill: black;" text="Cuenta" />
-                                                <TableColumn fx:id="col_ID_MESERO" minWidth="0.0" prefWidth="109.0" style="-fx-font-size: 20px; -fx-text-fill: black;" text="Mesero" />
-                                                <TableColumn fx:id="colMOTIVO" minWidth="0.0" prefWidth="435.6666259765625" style="-fx-font-size: 20px; -fx-text-fill: black;" text="Motivo" />
-                                                <TableColumn fx:id="colESTADO_SOLICITUD" minWidth="0.0" prefWidth="110.3333740234375" style="-fx-font-size: 20px; -fx-text-fill: black;" text="Estado" />
+                                                <TableColumn fx:id="col_ID_CUENTA"
+                                                             editable="false" prefWidth="117.0"
+                                                             style="-fx-font-size: 20px; -fx-text-fill: black;"
+                                                             text="Cuenta" />
+                                                <TableColumn fx:id="col_ID_MESERO"
+                                                             minWidth="0.0" prefWidth="109.0"
+                                                             style="-fx-font-size: 20px; -fx-text-fill: black;"
+                                                             text="Mesero" />
+                                                <TableColumn fx:id="colMOTIVO"
+                                                             minWidth="0.0" prefWidth="435.66"
+                                                             style="-fx-font-size: 20px; -fx-text-fill: black;"
+                                                             text="Motivo" />
+                                                <TableColumn fx:id="colESTADO_SOLICITUD"
+                                                             minWidth="0.0" prefWidth="110.33"
+                                                             style="-fx-font-size: 20px; -fx-text-fill: black;"
+                                                             text="Estado" />
                                             </columns>
                                             <columnResizePolicy>
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -124,15 +160,53 @@
                                                 <Cursor fx:constant="HAND" />
                                             </cursor>
                                         </TableView>
-                                        <Button fx:id="btnAceptar" alignment="CENTER" contentDisplay="CENTER" layoutX="944.0" layoutY="140.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="122.0" text="Acceptar" textAlignment="CENTER" />
-                                        <Button fx:id="btnDenegar" alignment="CENTER" contentDisplay="CENTER" layoutX="944.0" layoutY="72.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="123.0" style="-fx-background-color: red;" text="Denegar" textAlignment="CENTER" />
-                                        <Button fx:id="btnDetalles" alignment="CENTER" contentDisplay="CENTER" layoutX="944.0" layoutY="213.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="122.0" text="Detalles" textAlignment="CENTER" />
-                                        <TableView fx:id="tablaMesas" cacheShape="true" fixedCellSize="30.0" focusTraversable="true" layoutX="14.0" layoutY="427.0" prefHeight="328.0" prefWidth="477.0">
+                                        <Button fx:id="btnAceptar"
+                                                alignment="CENTER"
+                                                contentDisplay="CENTER"
+                                                layoutX="944.0" layoutY="140.0"
+                                                mnemonicParsing="false"
+                                                prefHeight="50.0" prefWidth="122.0"
+                                                text="Acceptar"
+                                                textAlignment="CENTER" />
+                                        <Button fx:id="btnDenegar"
+                                                alignment="CENTER"
+                                                contentDisplay="CENTER"
+                                                layoutX="944.0" layoutY="72.0"
+                                                mnemonicParsing="false"
+                                                prefHeight="50.0" prefWidth="123.0"
+                                                style="-fx-background-color: red;"
+                                                text="Denegar"
+                                                textAlignment="CENTER" />
+                                        <Button fx:id="btnDetalles"
+                                                alignment="CENTER"
+                                                contentDisplay="CENTER"
+                                                layoutX="944.0" layoutY="213.0"
+                                                mnemonicParsing="false"
+                                                prefHeight="50.0" prefWidth="122.0"
+                                                text="Detalles"
+                                                textAlignment="CENTER" />
+                                        <TableView fx:id="tablaMesas"
+                                                   cacheShape="true" fixedCellSize="30.0"
+                                                   focusTraversable="true"
+                                                   layoutX="14.0" layoutY="427.0"
+                                                   prefHeight="328.0" prefWidth="477.0">
                                             <columns>
-                                                <TableColumn fx:id="colNUMERO_MESA" editable="false" prefWidth="60.0" style="-fx-font-size: 20px; -fx-text-fill: black;" text="Mesa" />
-                                                <TableColumn fx:id="colCAPACIDAD" editable="false" prefWidth="104.0" style="-fx-font-size: 20px; -fx-text-fill: black;" text="Capacidad" />
-                                                <TableColumn fx:id="colUBICACION" minWidth="0.0" prefWidth="84.0" style="-fx-font-size: 20px; -fx-text-fill: black;" text="Area" />
-                                                <TableColumn fx:id="colESTADO_MESA" minWidth="0.0" prefWidth="69.0" style="-fx-font-size: 20px; -fx-text-fill: black;" text="Estado" />
+                                                <TableColumn fx:id="colNUMERO_MESA"
+                                                             editable="false" prefWidth="60.0"
+                                                             style="-fx-font-size: 20px; -fx-text-fill: black;"
+                                                             text="Mesa" />
+                                                <TableColumn fx:id="colCAPACIDAD"
+                                                             editable="false" prefWidth="104.0"
+                                                             style="-fx-font-size: 20px; -fx-text-fill: black;"
+                                                             text="Capacidad" />
+                                                <TableColumn fx:id="colUBICACION"
+                                                             minWidth="0.0" prefWidth="84.0"
+                                                             style="-fx-font-size: 20px; -fx-text-fill: black;"
+                                                             text="Area" />
+                                                <TableColumn fx:id="colESTADO_MESA"
+                                                             minWidth="0.0" prefWidth="69.0"
+                                                             style="-fx-font-size: 20px; -fx-text-fill: black;"
+                                                             text="Estado" />
                                             </columns>
                                             <columnResizePolicy>
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -141,10 +215,20 @@
                                                 <Cursor fx:constant="HAND" />
                                             </cursor>
                                         </TableView>
-                                        <TableView fx:id="tablaUSUARIOS_ROLMESERO" cacheShape="true" fixedCellSize="30.0" focusTraversable="true" layoutX="532.0" layoutY="427.0" prefHeight="328.0" prefWidth="575.0">
+                                        <TableView fx:id="tablaUSUARIOS_ROLMESERO"
+                                                   cacheShape="true" fixedCellSize="30.0"
+                                                   focusTraversable="true"
+                                                   layoutX="532.0" layoutY="427.0"
+                                                   prefHeight="328.0" prefWidth="575.0">
                                             <columns>
-                                                <TableColumn fx:id="colNombre_mesero" editable="false" prefWidth="166.333251953125" style="-fx-font-size: 20px; -fx-text-fill: black;" text="Nombre" />
-                                                <TableColumn fx:id="colESTADO_USUARIO" editable="false" prefWidth="100.0" style="-fx-font-size: 20px; -fx-text-fill: black;" text="Estado" />
+                                                <TableColumn fx:id="colNombre_mesero"
+                                                             editable="false" prefWidth="166.33"
+                                                             style="-fx-font-size: 20px; -fx-text-fill: black;"
+                                                             text="Nombre" />
+                                                <TableColumn fx:id="colESTADO_USUARIO"
+                                                             editable="false" prefWidth="100.0"
+                                                             style="-fx-font-size: 20px; -fx-text-fill: black;"
+                                                             text="Estado" />
                                             </columns>
                                             <columnResizePolicy>
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -153,12 +237,16 @@
                                                 <Cursor fx:constant="HAND" />
                                             </cursor>
                                         </TableView>
-                                        <Label layoutX="22.0" layoutY="375.0" prefHeight="48.0" prefWidth="518.0" text="Mesas">
+                                        <Label layoutX="22.0" layoutY="375.0"
+                                               prefHeight="48.0" prefWidth="518.0"
+                                               text="Mesas">
                                             <font>
                                                 <Font name="Century Gothic" size="36.0" />
                                             </font>
                                         </Label>
-                                        <Label layoutX="540.0" layoutY="375.0" prefHeight="48.0" prefWidth="518.0" text="Meseros">
+                                        <Label layoutX="540.0" layoutY="375.0"
+                                               prefHeight="48.0" prefWidth="518.0"
+                                               text="Meseros">
                                             <font>
                                                 <Font name="Century Gothic" size="36.0" />
                                             </font>

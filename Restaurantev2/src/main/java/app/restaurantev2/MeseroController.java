@@ -29,7 +29,8 @@ public class MeseroController {
     @FXML private TableColumn<TurnoAsignado, String> colHoraFin;
     @FXML private TableView<SolicitudModificacion> tablaSolicitudesModificacion;
     @FXML private TableColumn<SolicitudModificacion, Integer> colMesaSolicitud;
-    @FXML private TableColumn<SolicitudModificacion, String> colAreaSolicitud;
+    @FXML private TableColumn<SolicitudModificacion, Integer> colNumeroDeCuenta;
+    @FXML private TableColumn<SolicitudModificacion, String> colAreaSolicitud1;
     @FXML private TableColumn<SolicitudModificacion, String> colEstadoSolicitud;
 
     public MainApp.ConexionBaseDatos db;
@@ -56,7 +57,9 @@ public class MeseroController {
         public String horaInicio;
         public String horaFin;
         public TurnoAsignado(String turno, String horaInicio, String horaFin) {
-            this.turno = turno; this.horaInicio = horaInicio; this.horaFin = horaFin;
+            this.turno = turno;
+            this.horaInicio = horaInicio;
+            this.horaFin = horaFin;
         }
         public String getTurno() { return turno; }
         public String getHoraInicio() { return horaInicio; }
@@ -65,16 +68,25 @@ public class MeseroController {
 
     public static class SolicitudModificacion {
         public int numeroMesa;
+        public int numeroCuenta;
         public String areaMesa;
         public String estadoSolicitud;
         public int idCuenta; // ID de la cuenta asociada
-        public SolicitudModificacion(int numeroMesa, String areaMesa, String estadoSolicitud, int idCuenta) {
-            this.numeroMesa = numeroMesa; this.areaMesa = areaMesa; this.estadoSolicitud = estadoSolicitud; this.idCuenta = idCuenta;
+        public int idSolicitud; // ID de la solicitud
+        public SolicitudModificacion(int numeroMesa, int numeroCuenta, String areaMesa, String estadoSolicitud, int idCuenta, int idSolicitud) {
+            this.numeroMesa = numeroMesa;
+            this.numeroCuenta = numeroCuenta;
+            this.areaMesa = areaMesa;
+            this.estadoSolicitud = estadoSolicitud;
+            this.idCuenta = idCuenta;
+            this.idSolicitud = idSolicitud;
         }
         public int getNumeroMesa() { return numeroMesa; }
+        public int getNumeroCuenta() { return numeroCuenta; }
         public String getAreaMesa() { return areaMesa; }
         public String getEstadoSolicitud() { return estadoSolicitud; }
         public int getIdCuenta() { return idCuenta; }
+        public int getIdSolicitud() { return idSolicitud; }
     }
 
     @FXML
@@ -90,7 +102,8 @@ public class MeseroController {
         colHoraFin.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getHoraFin()));
 
         colMesaSolicitud.setCellValueFactory(cell -> new javafx.beans.property.SimpleIntegerProperty(cell.getValue().getNumeroMesa()).asObject());
-        colAreaSolicitud.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getAreaMesa()));
+        colNumeroDeCuenta.setCellValueFactory(cell -> new javafx.beans.property.SimpleIntegerProperty(cell.getValue().getNumeroCuenta()).asObject());
+        colAreaSolicitud1.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getAreaMesa()));
         colEstadoSolicitud.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getEstadoSolicitud()));
 
         tablaAsignacionesMesas.setItems(listaMesas);
@@ -101,9 +114,9 @@ public class MeseroController {
         cargarTurnosAsignados();
         cargarSolicitudesModificacion();
 
-        btnHorariolaboral.setOnAction(e -> reloadScreen("Mesero.fxml"));
-        btnMesasasignadas.setOnAction(e -> reloadScreen("Mesero_NuevaOrden.fxml"));
-        btnTomarorden.setOnAction(e -> reloadScreen("Mesero_Cuentas.fxml"));
+        btnHorariolaboral.setOnAction(e -> reloadScreen("/app/restaurantev2/Mesero.fxml"));
+        btnMesasasignadas.setOnAction(e -> reloadScreen("/app/restaurantev2/Mesero_NuevaOrden.fxml"));
+        btnTomarorden.setOnAction(e -> reloadScreen("/app/restaurantev2/Mesero_Cuentas.fxml"));
         btnSalir.setOnAction(e -> ((Stage)btnSalir.getScene().getWindow()).close());
         btnEditarCuenta.setOnAction(e -> editarCuenta());
     }
@@ -116,6 +129,7 @@ public class MeseroController {
             stage.setScene(scene);
         } catch (Exception ex) {
             mostrarAlerta("Error", "Error al cambiar pantalla: " + ex.getMessage());
+            ex.printStackTrace();
         }
     }
 
@@ -166,14 +180,15 @@ public class MeseroController {
         }
     }
 
+    // SOLO muestra solicitudes con ESTADO = 'ACEPTADA', 'PENDIENTE', 'DENEGADA'
     private void cargarSolicitudesModificacion() {
         listaSolicitudes.clear();
         int idMesero = LoginController.currentUserId;
-        String sql = "SELECT M.NUMERO_MESA, M.UBICACION AS AREA, SM.ESTADO, C.ID_CUENTA " +
+        String sql = "SELECT M.NUMERO_MESA, C.ID_CUENTA, M.UBICACION AS AREA, SM.ESTADO, SM.ID_SOLICITUD " +
                 "FROM SOLICITUDES_MODIFICACION SM " +
                 "JOIN CUENTAS C ON SM.ID_CUENTA = C.ID_CUENTA " +
                 "JOIN MESAS M ON C.ID_MESA = M.ID_MESA " +
-                "WHERE SM.ID_MESERO = ?";
+                "WHERE SM.ID_MESERO = ? AND SM.ESTADO IN ('ACEPTADA', 'PENDIENTE', 'DENEGADA')";
         try (Connection conn = db.obtenerConexion();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, idMesero);
@@ -181,9 +196,11 @@ public class MeseroController {
             while (rs.next()) {
                 listaSolicitudes.add(new SolicitudModificacion(
                         rs.getInt("NUMERO_MESA"),
+                        rs.getInt("ID_CUENTA"),
                         rs.getString("AREA"),
                         rs.getString("ESTADO"),
-                        rs.getInt("ID_CUENTA")
+                        rs.getInt("ID_CUENTA"),
+                        rs.getInt("ID_SOLICITUD")
                 ));
             }
         } catch (Exception e) {
@@ -202,13 +219,15 @@ public class MeseroController {
             return;
         }
         ModificacionController.idCuentaEditar = solicitud.getIdCuenta();
+        ModificacionController.idSolicitudEditar = solicitud.getIdSolicitud(); // para marcar la solicitud como editada
 
         try {
             Stage stage = (Stage) rootPane.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("Modificacion.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/app/restaurantev2/Modificacion.fxml"));
             stage.setScene(new Scene(root, 1600, 900));
         } catch (Exception ex) {
             mostrarAlerta("Error", "No se pudo abrir la pantalla de edición: " + ex.getMessage());
+            ex.printStackTrace();
         }
     }
 

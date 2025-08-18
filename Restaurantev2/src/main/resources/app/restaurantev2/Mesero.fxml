@@ -25,13 +25,16 @@
 
     <center>
         <VBox alignment="TOP_CENTER" prefHeight="900.0" prefWidth="1230.0" spacing="28" style="-fx-background-color: grey;" styleClass="panelmesero">
-            <Label fx:id="lblTitulo" alignment="CENTER" prefHeight="77.0" prefWidth="1161.0" styleClass="lblTitulo" text="DATOS DEL MESERO" />
+            <Label fx:id="lblTitulo" alignment="CENTER" prefHeight="77.0" prefWidth="1161.0" styleClass="lblTitulo" text="DATOS DEL MESERO">
+            <font>
+               <Font name="Georgia" size="34.0" />
+            </font></Label>
             <HBox spacing="32" styleClass="hbox">
                 <!-- MESAS ASIGNADAS -->
                 <VBox prefHeight="322.0" prefWidth="646.0" spacing="10" styleClass="cajapanel">
-                    <Label alignment="CENTER" prefHeight="48.0" prefWidth="564.0" style="-fx-background-color: gray;" text="MESAS ASIGNADAS">
+                    <Label alignment="CENTER" prefHeight="48.0" prefWidth="564.0" text="MESAS ASIGNADAS">
                   <font>
-                     <Font name="System Bold" size="28.0" />
+                     <Font name="Georgia" size="36.0" />
                   </font></Label>
                     <TableView fx:id="tablaAsignacionesMesas" prefHeight="220.0" prefWidth="420.0">
                         <columns>
@@ -43,7 +46,10 @@
                 </VBox>
                 <!-- TURNOS ASIGNADOS -->
                 <VBox prefHeight="322.0" prefWidth="622.0" spacing="10" styleClass="cajapanel">
-                    <Label alignment="CENTER" prefHeight="48.0" prefWidth="518.0" text="TURNOS ASIGNADOS" />
+                    <Label alignment="CENTER" prefHeight="48.0" prefWidth="518.0" text="TURNOS ASIGNADOS">
+                  <font>
+                     <Font name="Georgia" size="36.0" />
+                  </font></Label>
                     <TableView fx:id="tablaTurnosAsignados" prefHeight="220.0" prefWidth="420.0">
                         <columns>
                             <TableColumn fx:id="colTurno" prefWidth="138.0" text="Turno" />
@@ -55,13 +61,17 @@
             </HBox>
              <!-- SOLICITUDES DE MODIFICACIÓN, CON BOTÓN EDITAR -->
              <VBox prefHeight="380.0" prefWidth="1186.0" spacing="10" style="-fx-background-color: #EAC282;" styleClass="cajapanel">
-                 <Label alignment="CENTER" prefHeight="48.0" prefWidth="1182.0" text="SOLICITUDES DE MODIFICACIÓN" />
+                 <Label alignment="CENTER" prefHeight="48.0" prefWidth="1182.0" text="SOLICITUDES DE MODIFICACIÓN">
+               <font>
+                  <Font name="Georgia" size="36.0" />
+               </font></Label>
                  <HBox prefHeight="258.0" prefWidth="1142.0" spacing="10" styleClass="hbox">
                      <TableView fx:id="tablaSolicitudesModificacion" prefHeight="267.0" prefWidth="691.0">
                          <columns>
-                             <TableColumn fx:id="colMesaSolicitud" prefWidth="200.0" text="Mesa" />
-                             <TableColumn fx:id="colAreaSolicitud" prefWidth="238.0" text="Área" />
-                             <TableColumn fx:id="colEstadoSolicitud" prefWidth="260.0" text="Estado" />
+                             <TableColumn fx:id="colMesaSolicitud" prefWidth="160.0" text="Mesa" />
+                             <TableColumn fx:id="colNumeroDeCuenta" prefWidth="144.0" text="Cuenta" />
+                     <TableColumn fx:id="colAreaSolicitud1" prefWidth="177.0" text="Área" />
+                             <TableColumn fx:id="colEstadoSolicitud" prefWidth="206.0" text="Estado" />
                          </columns>
                      </TableView>
                       <Button fx:id="btnEditarCuenta" alignment="BASELINE_LEFT" contentDisplay="CENTER" prefHeight="51.0" prefWidth="448.0" style="-fx-line-spacing: 10; -fx-font-size: 30;" text="    Editar Cuenta">

@@ -29,6 +29,10 @@ public class MeseroCuentasController {
 
     @FXML private Label lblTitulo, lblTitulo1;
 
+    // NUEVOS PARA SOLICITUD MODIFICACION
+    @FXML private TextArea txtMotivo;
+    @FXML private Button btnSolicitarEdicion;
+
     public MainApp.ConexionBaseDatos db;
     public ObservableList<Integer> listaCuentas = FXCollections.observableArrayList();
     public ObservableList<DetalleCuenta> listaDetalles = FXCollections.observableArrayList();
@@ -67,6 +71,11 @@ public class MeseroCuentasController {
         comboCuentaActiva.setOnAction(e -> cargarDetallesCuenta());
         btnCalcularTotal.setOnAction(e -> calcularTotal());
         btnPagarCuenta.setOnAction(e -> pagarCuenta());
+
+        // NUEVO: Solicitar modificación
+        if (btnSolicitarEdicion != null) {
+            btnSolicitarEdicion.setOnAction(e -> solicitarModificacion());
+        }
 
         // Navegación menú lateral
         btnHorariolaboral.setOnAction(e -> cambiarPantalla("Mesero.fxml"));
@@ -130,17 +139,48 @@ public class MeseroCuentasController {
             mostrarAlerta("Selecciona una cuenta activa.");
             return;
         }
-        String sql = "UPDATE CUENTAS SET ESTADO = 'CERRADA' WHERE ID_CUENTA = ?";
+        String sqlCerrarCuenta = "UPDATE CUENTAS SET ESTADO = 'CERRADA' WHERE ID_CUENTA = ?";
+        String sqlLiberarMesa = "UPDATE MESAS SET ESTADO = 'LIBRE' WHERE ID_MESA = (SELECT ID_MESA FROM CUENTAS WHERE ID_CUENTA = ?)";
         try (Connection conn = db.obtenerConexion();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, idCuenta);
-            pstmt.executeUpdate();
-            mostrarAlerta("Cuenta pagada y cerrada correctamente.");
+             PreparedStatement pstmtCerrar = conn.prepareStatement(sqlCerrarCuenta);
+             PreparedStatement pstmtLiberar = conn.prepareStatement(sqlLiberarMesa)) {
+            // Cerrar cuenta
+            pstmtCerrar.setInt(1, idCuenta);
+            pstmtCerrar.executeUpdate();
+
+            // Liberar mesa
+            pstmtLiberar.setInt(1, idCuenta);
+            pstmtLiberar.executeUpdate();
+
+            mostrarAlerta("Cuenta pagada y cerrada correctamente. La mesa ahora está libre.");
             cargarCuentasActivas();
             listaDetalles.clear();
             mostrarTotalCuenta.clear();
         } catch (Exception e) {
             mostrarAlerta("Error al pagar cuenta: " + e.getMessage());
+        }
+    }
+
+    // NUEVO: Solicitar Modificación
+    private void solicitarModificacion() {
+        Integer idCuenta = comboCuentaActiva.getValue();
+        String motivo = txtMotivo.getText();
+        if (idCuenta == null || motivo == null || motivo.trim().isEmpty()) {
+            mostrarAlerta("Faltan datos", "Selecciona una cuenta y escribe el motivo.");
+            return;
+        }
+        String sql = "INSERT INTO SOLICITUDES_MODIFICACION (ID_CUENTA, ID_MESERO, MOTIVO, ESTADO) VALUES (?, ?, ?, 'PENDIENTE')";
+        try (Connection conn = db.obtenerConexion();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, idCuenta);
+            pstmt.setInt(2, idMesero);
+            pstmt.setString(3, motivo);
+            pstmt.executeUpdate();
+            mostrarAlerta("Éxito", "Solicitud enviada correctamente.");
+            txtMotivo.clear();
+            comboCuentaActiva.setValue(null);
+        } catch (Exception ex) {
+            mostrarAlerta("Error", "No se pudo enviar la solicitud: " + ex.getMessage());
         }
     }
 

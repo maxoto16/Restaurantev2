@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane id="root" fx:id="rootPane" prefHeight="900.0" prefWidth="1600.0" styleClass="root" stylesheets="@MeseroStyle.css"
-            xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="app.restaurantev2.MeseroCuentasController">
+<BorderPane id="root" fx:id="rootPane" prefHeight="900.0" prefWidth="1600.0" styleClass="root" stylesheets="@MeseroStyle.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.restaurantev2.MeseroCuentasController">
 
     <!-- MENÚ LATERAL -->
     <left>
@@ -27,12 +27,29 @@
     <center>
         <VBox alignment="TOP_CENTER" prefHeight="880.0" prefWidth="1230.0" spacing="32" styleClass="inicioMesero">
             <Label fx:id="lblTitulo" alignment="CENTER" prefHeight="41.0" prefWidth="1230.0" styleClass="TITULOPANEL" text="FINALIZAR ORDENES" />
+         <HBox prefHeight="185.0" prefWidth="1114.0">
+            <children>
+               <TextArea fx:id="txtMotivo" prefHeight="183.0" prefWidth="557.0" promptText="Detalla el Motivo De la Solicitud">
+                  <font>
+                     <Font name="Cambria" size="22.0" />
+                  </font>
+               </TextArea>
+                    <ComboBox fx:id="comboCuentaActiva" prefHeight="50.0" prefWidth="230.0" promptText="CUENTA" />
+               <Button fx:id="btnSolicitarEdicion" mnemonicParsing="false" prefHeight="43.0" prefWidth="241.0" text="Solicitar Edicion" />
+            </children>
+         </HBox>
             <HBox alignment="TOP_CENTER" spacing="32" style="-fx-padding: 24;">
-                <VBox alignment="TOP_CENTER" spacing="24">
-                    <ComboBox fx:id="comboCuentaActiva" prefHeight="50.0" prefWidth="320.0" promptText="CUENTA" />
-                    <Button fx:id="btnCalcularTotal" prefHeight="44.0" prefWidth="219.0" text="CALCULAR TOTAL" />
-                    <Button fx:id="btnPagarCuenta" prefHeight="44.0" prefWidth="219.0" text="PAGAR AHORA" />
-                    <TextArea fx:id="mostrarTotalCuenta" prefHeight="120.0" prefWidth="320.0" promptText="Total:" />
+                <VBox alignment="TOP_CENTER" prefHeight="552.0" prefWidth="496.0" spacing="24">
+                    <TextArea fx:id="mostrarTotalCuenta" prefHeight="338.0" prefWidth="496.0" promptText="Total:">
+                  <font>
+                     <Font name="Cambria" size="35.0" />
+                  </font></TextArea>
+               <HBox spacing="20.0">
+                  <children>
+                          <Button fx:id="btnCalcularTotal" prefHeight="44.0" prefWidth="253.0" text="CALCULAR TOTAL" />
+                          <Button fx:id="btnPagarCuenta" prefHeight="44.0" prefWidth="243.0" text="PAGAR AHORA" />
+                  </children>
+               </HBox>
                 </VBox>
                 <TableView fx:id="tablaDetallesCuenta" prefHeight="552.0" prefWidth="640.0">
                     <columns>

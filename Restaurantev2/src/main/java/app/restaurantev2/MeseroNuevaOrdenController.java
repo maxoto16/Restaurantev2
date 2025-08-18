@@ -112,6 +112,7 @@ public class MeseroNuevaOrdenController {
         btnSalir.setOnAction(e -> salir());
     }
 
+    // SOLO carga las mesas asignadas al mesero logueado (sin filtrar por disponibilidad)
     private void cargarMesasAsignadas() {
         listaMesas.clear();
         String sql = "SELECT M.NUMERO_MESA FROM ASIGNACIONES_MESAS AM " +
@@ -125,7 +126,7 @@ public class MeseroNuevaOrdenController {
                 listaMesas.add(rs.getInt("NUMERO_MESA"));
             }
         } catch (Exception e) {
-            mostrarAlerta("Error", "Error al cargar mesas: " + e.getMessage());
+            mostrarAlerta("Error", "Error al cargar mesas asignadas: " + e.getMessage());
         }
     }
 
@@ -154,7 +155,14 @@ public class MeseroNuevaOrdenController {
             mostrarAlerta("Error", "Selecciona una mesa asignada.");
             return;
         }
+
         int idMesa = obtenerIdMesaPorNumero(numeroMesa);
+
+        // Verifica si ya existe una cuenta abierta para esa mesa y mesero
+        if (existeCuentaAbierta(idMesa, idMesero)) {
+            mostrarAlerta("Error", "Ya existe una cuenta abierta para esta mesa. Debe cerrarse antes de crear una nueva.");
+            return;
+        }
 
         String sql = "INSERT INTO CUENTAS (ID_MESA, ID_MESERO, ESTADO) VALUES (?, ?, 'ABIERTA')";
         try (Connection conn = db.obtenerConexion();
@@ -169,10 +177,25 @@ public class MeseroNuevaOrdenController {
             } else {
                 idCuentaActual = obtenerIdCuentaActiva(idMesa, idMesero);
             }
+
             mostrarAlerta("Éxito", "Cuenta creada correctamente.");
             cargarDetallesCuenta();
         } catch (Exception e) {
             mostrarAlerta("Error", "Error al crear la cuenta: " + e.getMessage());
+        }
+    }
+
+    // Verifica si existe una cuenta ABIERTA para esa mesa y mesero
+    private boolean existeCuentaAbierta(int idMesa, int idMesero) {
+        String sql = "SELECT ID_CUENTA FROM CUENTAS WHERE ID_MESA = ? AND ID_MESERO = ? AND ESTADO = 'ABIERTA'";
+        try (Connection conn = db.obtenerConexion();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, idMesa);
+            pstmt.setInt(2, idMesero);
+            ResultSet rs = pstmt.executeQuery();
+            return rs.next();
+        } catch (Exception e) {
+            return true; // Si hay error, mejor no crear la cuenta
         }
     }
 
@@ -190,7 +213,7 @@ public class MeseroNuevaOrdenController {
     }
 
     private int obtenerIdCuentaActiva(int idMesa, int idMesero) {
-        String sql = "SELECT ID_CUENTA FROM CUENTAS WHERE ID_MESA = ? AND ID_MESERO = ? AND ESTADO = 'ABIERTA' ORDER BY FECHA_APERTURA DESC";
+        String sql = "SELECT ID_CUENTA FROM CUENTAS WHERE ID_MESA = ? AND ID_MESERO = ? AND ESTADO = 'ABIERTA' ORDER BY ID_CUENTA DESC";
         try (Connection conn = db.obtenerConexion();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, idMesa);

@@ -118,17 +118,18 @@ public class LiderMeserosController {
         listaMesas = FXCollections.observableArrayList();
         listaMeseros = FXCollections.observableArrayList();
 
+        // Menú de navegación principal con rutas corregidas
         btninicio.setOnAction(e -> {
             Stage stageActual = (Stage) btninicio.getScene().getWindow();
-            PantallaController.cambiarPantalla(stageActual, "/app/restaurantev2/Inicio.fxml", "Inicio - Lider Meseros", 1600, 900);
+            PantallaController.cambiarPantalla(stageActual, "/app/restaurantev2/LiderMeseros.fxml", "Inicio - Lider Meseros", 1600, 900);
         });
         btnPlandedia.setOnAction(e -> {
             Stage stageActual = (Stage) btnPlandedia.getScene().getWindow();
-            PantallaController.cambiarPantalla(stageActual, "/app/restaurantev2/PlanDia.fxml", "Plan del Día", 1600, 900);
+            PantallaController.cambiarPantalla(stageActual, "/app/restaurantev2/LiderdeMeseros_Plandedia.fxml", "Plan del Día - Lider Meseros", 1600, 900);
         });
         btnHistorial.setOnAction(e -> {
             Stage stageActual = (Stage) btnHistorial.getScene().getWindow();
-            PantallaController.cambiarPantalla(stageActual, "/app/restaurantev2/Historial.fxml", "Historial", 1600, 900);
+            PantallaController.cambiarPantalla(stageActual, "/app/restaurantev2/LiderdeMeseros_Notificaciones.fxml", "Notificaciones - Lider Meseros", 1600, 900);
         });
         btnSalir.setOnAction(e -> btnSalir.getScene().getWindow().hide());
 
@@ -162,7 +163,7 @@ public class LiderMeserosController {
 
     public void cargarSolicitudes() {
         listaSolicitudes.clear();
-        String sql = "SELECT ID_CUENTA, ID_MESERO, MOTIVO, ESTADO FROM SOLICITUDES_MODIFICACION";
+        String sql = "SELECT ID_CUENTA, ID_MESERO, MOTIVO, ESTADO FROM SOLICITUDES_MODIFICACION WHERE ESTADO = 'PENDIENTE'";
         try (Connection conn = db.obtenerConexion();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
@@ -235,7 +236,8 @@ public class LiderMeserosController {
                 pstmt.setInt(1, solicitud.getIdCuenta());
                 pstmt.setString(2, solicitud.getIdMesero());
                 pstmt.executeUpdate();
-                cargarSolicitudes();
+
+                listaSolicitudes.remove(solicitud);
                 mostrarAlerta("Éxito", "Solicitud aceptada.");
             }
         } catch (Exception e) {
@@ -256,7 +258,8 @@ public class LiderMeserosController {
                 pstmt.setInt(1, solicitud.getIdCuenta());
                 pstmt.setString(2, solicitud.getIdMesero());
                 pstmt.executeUpdate();
-                cargarSolicitudes();
+
+                listaSolicitudes.remove(solicitud);
                 mostrarAlerta("Éxito", "Solicitud denegada.");
             }
         } catch (Exception e) {
