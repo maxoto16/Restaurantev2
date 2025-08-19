@@ -87,7 +87,7 @@ public class LiderdeMeseros_PlandediaController {
 
         btnAgregarAdignacionMesa.setOnAction(e -> agregarAsignacionMesa());
         btnELIMINAR.setOnAction(e -> eliminarAsignacionMesa());
-        btnEDITAR.setOnAction(e -> mostrarAlerta("Pendiente", "Funcionalidad de edición pendiente."));
+        btnEDITAR.setOnAction(e -> editarAsignacionMesa());
 
         btninicio.setOnAction(e -> cambiarPantalla("/app/restaurantev2/LiderMeseros.fxml", "Inicio - Lider Meseros"));
         btnPlandedia.setOnAction(e -> cambiarPantalla("/app/restaurantev2/LiderdeMeseros_Plandedia.fxml", "Plan del Día - Lider Meseros"));
@@ -110,7 +110,7 @@ public class LiderdeMeseros_PlandediaController {
 
     private void cargarMeserosDisponibles() {
         listaMeserosDisponibles.clear();
-        String sql = "SELECT NOMBRE FROM USUARIOS WHERE ROL = 'MESERO'";
+        String sql = "SELECT NOMBRE FROM USUARIOS WHERE ROL = 'MESERO' AND ESTADO = 'ACTIVO'";
         try (Connection conn = db.obtenerConexion();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
@@ -129,7 +129,7 @@ public class LiderdeMeseros_PlandediaController {
                 "FROM ASIGNACIONES_MESAS AM " +
                 "JOIN MESAS M ON AM.ID_MESA = M.ID_MESA " +
                 "JOIN USUARIOS U ON AM.ID_USUARIO = U.ID_USUARIO " +
-                "WHERE AM.FECHA = ?";
+                "WHERE TO_CHAR(AM.FECHA, 'YYYY-MM-DD') = ?";
         try (Connection conn = db.obtenerConexion();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, hoy);
@@ -147,7 +147,7 @@ public class LiderdeMeseros_PlandediaController {
 
     private void cargarHistorialAsignaciones() {
         listaHistorial.clear();
-        String sql = "SELECT M.NUMERO_MESA, U.NOMBRE, AM.FECHA " +
+        String sql = "SELECT M.NUMERO_MESA, U.NOMBRE, TO_CHAR(AM.FECHA, 'YYYY-MM-DD') FECHA " +
                 "FROM ASIGNACIONES_MESAS AM " +
                 "JOIN MESAS M ON AM.ID_MESA = M.ID_MESA " +
                 "JOIN USUARIOS U ON AM.ID_USUARIO = U.ID_USUARIO " +
@@ -178,7 +178,7 @@ public class LiderdeMeseros_PlandediaController {
         int idMesero = obtenerIdMeseroPorNombre(nombreMesero);
         String fecha = LocalDate.now().toString();
 
-        String sqlCheck = "SELECT 1 FROM ASIGNACIONES_MESAS WHERE ID_MESA = ? AND ID_USUARIO = ? AND FECHA = ?";
+        String sqlCheck = "SELECT 1 FROM ASIGNACIONES_MESAS WHERE ID_MESA = ? AND ID_USUARIO = ? AND TO_CHAR(FECHA, 'YYYY-MM-DD') = ?";
         try (Connection conn = db.obtenerConexion();
              PreparedStatement pstmtCheck = conn.prepareStatement(sqlCheck)) {
             pstmtCheck.setInt(1, idMesa);
@@ -194,7 +194,7 @@ public class LiderdeMeseros_PlandediaController {
             return;
         }
 
-        String sqlInsert = "INSERT INTO ASIGNACIONES_MESAS (ID_MESA, ID_USUARIO, FECHA) VALUES (?, ?, ?)";
+        String sqlInsert = "INSERT INTO ASIGNACIONES_MESAS (ID_MESA, ID_USUARIO, FECHA) VALUES (?, ?, TO_DATE(?, 'YYYY-MM-DD'))";
         try (Connection conn = db.obtenerConexion();
              PreparedStatement pstmt = conn.prepareStatement(sqlInsert)) {
             pstmt.setInt(1, idMesa);
@@ -219,7 +219,7 @@ public class LiderdeMeseros_PlandediaController {
         int idMesero = obtenerIdMeseroPorNombre(seleccion.getMesero());
         String fecha = LocalDate.now().toString();
 
-        String sql = "DELETE FROM ASIGNACIONES_MESAS WHERE ID_MESA = ? AND ID_USUARIO = ? AND FECHA = ?";
+        String sql = "DELETE FROM ASIGNACIONES_MESAS WHERE ID_MESA = ? AND ID_USUARIO = ? AND TO_CHAR(FECHA, 'YYYY-MM-DD') = ?";
         try (Connection conn = db.obtenerConexion();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, idMesa);
@@ -231,6 +231,59 @@ public class LiderdeMeseros_PlandediaController {
             cargarHistorialAsignaciones();
         } catch (Exception e) {
             mostrarAlerta("Error al eliminar asignación", e.getMessage());
+        }
+    }
+
+    private void editarAsignacionMesa() {
+        AsignacionMesa seleccion = tablaAsignacionMesasSoloConfechadeHoy.getSelectionModel().getSelectedItem();
+        Integer nuevaMesa = MESASDISPONIBLES.getValue();
+        String nuevoMesero = NOMBREMESEROSDISPONIBLES.getValue();
+        if (seleccion == null || nuevaMesa == null || nuevoMesero == null) {
+            mostrarAlerta("Editar", "Selecciona una asignación y los nuevos datos.");
+            return;
+        }
+        int idMesaVieja = obtenerIdMesaPorNumero(seleccion.getMesa());
+        int idMeseroViejo = obtenerIdMeseroPorNombre(seleccion.getMesero());
+        int idMesaNueva = obtenerIdMesaPorNumero(nuevaMesa);
+        int idMeseroNuevo = obtenerIdMeseroPorNombre(nuevoMesero);
+        String fecha = LocalDate.now().toString();
+
+        // Verifica que la nueva asignación no exista ya
+        String sqlCheck = "SELECT 1 FROM ASIGNACIONES_MESAS WHERE ID_MESA = ? AND ID_USUARIO = ? AND TO_CHAR(FECHA, 'YYYY-MM-DD') = ?";
+        try (Connection conn = db.obtenerConexion();
+             PreparedStatement pstmtCheck = conn.prepareStatement(sqlCheck)) {
+            pstmtCheck.setInt(1, idMesaNueva);
+            pstmtCheck.setInt(2, idMeseroNuevo);
+            pstmtCheck.setString(3, fecha);
+            ResultSet rsCheck = pstmtCheck.executeQuery();
+            if (rsCheck.next()) {
+                mostrarAlerta("Duplicado", "Ya existe una asignación con esos datos para hoy.");
+                return;
+            }
+        } catch (Exception e) {
+            mostrarAlerta("Error al verificar duplicados", e.getMessage());
+            return;
+        }
+
+        // Actualiza la asignación
+        String sqlUpdate = "UPDATE ASIGNACIONES_MESAS SET ID_MESA = ?, ID_USUARIO = ? WHERE ID_MESA = ? AND ID_USUARIO = ? AND TO_CHAR(FECHA, 'YYYY-MM-DD') = ?";
+        try (Connection conn = db.obtenerConexion();
+             PreparedStatement pstmt = conn.prepareStatement(sqlUpdate)) {
+            pstmt.setInt(1, idMesaNueva);
+            pstmt.setInt(2, idMeseroNuevo);
+            pstmt.setInt(3, idMesaVieja);
+            pstmt.setInt(4, idMeseroViejo);
+            pstmt.setString(5, fecha);
+            int rows = pstmt.executeUpdate();
+            if (rows > 0) {
+                mostrarAlerta("Éxito", "Asignación editada correctamente.");
+                cargarAsignacionesDeHoy();
+                cargarHistorialAsignaciones();
+            } else {
+                mostrarAlerta("Error", "No se encontró la asignación para editar.");
+            }
+        } catch (Exception e) {
+            mostrarAlerta("Error al editar asignación", e.getMessage());
         }
     }
 
