@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane id="root" fx:id="rootPane" prefHeight="900.0" prefWidth="1600.0" styleClass="root" stylesheets="@MeseroStyle.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.restaurantev2.MeseroCuentasController">
+<BorderPane fx:id="rootPane" prefHeight="900.0" prefWidth="1600.0" styleClass="root" stylesheets="@MeseroStyle.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.restaurantev2.MeseroCuentasController">
 
     <!-- MENÚ LATERAL -->
     <left>
@@ -16,7 +17,7 @@
                 </image>
             </ImageView>
             <Label fx:id="lblTitulo1" alignment="CENTER" prefHeight="60.0" prefWidth="370.0" styleClass="TITULOMENU" text="MESERO" />
-            <VBox alignment="TOP_CENTER" prefHeight="448.0" prefWidth="375.0" spacing="30.0" styleClass="cajamenu">
+            <VBox alignment="TOP_CENTER" cache="true" cacheHint="SCALE" prefHeight="448.0" prefWidth="375.0" spacing="30.0" styleClass="cajamenu">
                 <Button fx:id="btnHorariolaboral" prefHeight="85.0" prefWidth="370.0" styleClass="button" text="Inicio" />
                 <Button fx:id="btnMesasasignadas" prefHeight="85.0" prefWidth="370.0" styleClass="button" text="Nueva Orden" />
                 <Button fx:id="btnTomarorden" prefHeight="85.0" prefWidth="370.0" styleClass="button" text="Cobrar Orden" />
@@ -24,41 +25,85 @@
             <Button fx:id="btnSalir" prefHeight="80.0" prefWidth="250.0" styleClass="button" text="Salir" />
         </VBox>
     </left>
-    <center>
-        <VBox alignment="TOP_CENTER" prefHeight="880.0" prefWidth="1230.0" spacing="32" styleClass="inicioMesero">
-            <Label fx:id="lblTitulo" alignment="CENTER" prefHeight="41.0" prefWidth="1230.0" styleClass="TITULOPANEL" text="FINALIZAR ORDENES" />
-         <HBox prefHeight="185.0" prefWidth="1114.0">
-            <children>
-               <TextArea fx:id="txtMotivo" prefHeight="183.0" prefWidth="557.0" promptText="Detalla el Motivo De la Solicitud">
-                  <font>
-                     <Font name="Cambria" size="22.0" />
-                  </font>
-               </TextArea>
-                    <ComboBox fx:id="comboCuentaActiva" prefHeight="50.0" prefWidth="230.0" promptText="CUENTA" />
-               <Button fx:id="btnSolicitarEdicion" mnemonicParsing="false" prefHeight="43.0" prefWidth="241.0" text="Solicitar Edicion" />
-            </children>
-         </HBox>
-            <HBox alignment="TOP_CENTER" spacing="32" style="-fx-padding: 24;">
-                <VBox alignment="TOP_CENTER" prefHeight="552.0" prefWidth="496.0" spacing="24">
-                    <TextArea fx:id="mostrarTotalCuenta" prefHeight="338.0" prefWidth="496.0" promptText="Total:">
-                  <font>
-                     <Font name="Cambria" size="35.0" />
-                  </font></TextArea>
-               <HBox spacing="20.0">
-                  <children>
-                          <Button fx:id="btnCalcularTotal" prefHeight="44.0" prefWidth="253.0" text="CALCULAR TOTAL" />
-                          <Button fx:id="btnPagarCuenta" prefHeight="44.0" prefWidth="243.0" text="PAGAR AHORA" />
-                  </children>
-               </HBox>
-                </VBox>
-                <TableView fx:id="tablaDetallesCuenta" prefHeight="552.0" prefWidth="640.0">
-                    <columns>
-                        <TableColumn fx:id="colMesaCuenta" prefWidth="120.0" text="Mesa" />
-                        <TableColumn fx:id="colPlatilloCuenta" prefWidth="320.0" text="Platillos" />
-                        <TableColumn fx:id="colPrecioPlatilloCuenta" prefWidth="120.0" text="Precio" />
-                    </columns>
-                </TableView>
-            </HBox>
-        </VBox>
-    </center>
+   <center>
+      <HBox prefHeight="900.0" prefWidth="1916.0" styleClass="inicioMesero" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="814.0" prefWidth="1272.0" styleClass="cajapanel">
+               <children>
+                     <Label fx:id="lblTitulo" alignment="CENTER" prefHeight="41.0" prefWidth="1230.0" styleClass="TITULOPANEL" text="FINALIZAR ORDENES" textFill="WHITE" />
+                     <HBox alignment="CENTER_LEFT" prefHeight="373.0" prefWidth="1156.0" styleClass="hbox">
+                     <VBox alignment="CENTER" prefHeight="428.0" prefWidth="401.0" spacing="15.0">
+                        <children>
+                                <TextArea fx:id="mostrarTotalCuenta" prefHeight="379.0" prefWidth="395.0" promptText="Total:" styleClass="total-area" wrapText="true">
+                                    <font>
+                                        <Font name="Arial Black" size="18.0" />
+                                    </font>
+                                </TextArea>
+                                 <Button fx:id="btnCalcularTotal" alignment="BASELINE_CENTER" contentDisplay="CENTER" prefHeight="44.0" prefWidth="518.0" styleClass="button" text="CALCULAR TOTAL" textAlignment="CENTER" wrapText="true" />
+                        </children>
+                        <padding>
+                           <Insets bottom="20.0" top="20.0" />
+                        </padding>
+                     </VBox>
+                          <HBox spacing="20.0" styleClass="hbox">
+                        <VBox alignment="CENTER" prefHeight="193.0" prefWidth="227.0" spacing="40.0">
+                           <children>
+                                   <ComboBox fx:id="comboMesaConCUENTAACTIVA" prefHeight="50.0" prefWidth="230.0" promptText="MESA" styleClass="text-field" visibleRowCount="30" />
+                                   <ComboBox fx:id="comboCuentaActiva" prefHeight="50.0" prefWidth="230.0" promptText="CUENTA" styleClass="text-field" visibleRowCount="30" />
+                                    <Button fx:id="btnPagarCuenta" alignment="BASELINE_CENTER" prefHeight="44.0" prefWidth="330.0" styleClass="button" text="PAGAR AHORA" textAlignment="CENTER" wrapText="true" />
+                           </children>
+                        </VBox>
+                          </HBox>
+                     <VBox alignment="CENTER" prefHeight="429.0" prefWidth="432.0" spacing="15.0">
+                        <children>
+                           <Label fx:id="lblTitulo2" alignment="CENTER" contentDisplay="BOTTOM" prefHeight="10.0" prefWidth="432.0" styleClass="TITULOPANEL" text="Solicitar Cambios" textFill="WHITE" />
+                               <TextArea fx:id="txtMotivo" prefHeight="316.0" prefWidth="432.0" promptText="Motivo De Modificación" styleClass="motivo-area" wrapText="true">
+                                   <font>
+                                       <Font name="Arial Black" size="22.0" />
+                                   </font>
+                               </TextArea>
+                               <Button fx:id="btnSolicitarEdicion" alignment="BASELINE_CENTER" contentDisplay="CENTER" prefHeight="66.0" prefWidth="227.0" styleClass="button" text="Solicitar Edicion" textFill="#4d1919">
+                                   <font>
+                                       <Font name="Tahoma" size="21.0" />
+                                   </font>
+                               </Button>
+                        </children>
+                        <opaqueInsets>
+                           <Insets top="20.0" />
+                        </opaqueInsets>
+                        <padding>
+                           <Insets bottom="15.0" top="15.0" />
+                        </padding>
+                     </VBox>
+                     </HBox>
+                  <VBox spacing="8.0">
+                     <children>
+                        <Label fx:id="lblTitulo3" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="69.0" prefWidth="1156.0" style="-fx-padding: 8 0 8 0; -fx-border-color: #ff8700; -fx-border-width: 0 0 5 0;" text="RESUMEN DE LA ORDEN" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font name="Ebrima Bold" size="33.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets bottom="6.0" />
+                           </opaqueInsets>
+                        </Label>
+                            <TableView fx:id="tablaDetallesCuenta" prefHeight="460.0" prefWidth="1156.0">
+                                <columns>
+                                    <TableColumn fx:id="colMesaCuenta" prefWidth="120.0" styleClass="table-column" text="Mesa" />
+                                    <TableColumn fx:id="colPlatilloCuenta" prefWidth="320.0" styleClass="table-column" text="Platillos" />
+                                    <TableColumn fx:id="colPrecioPlatilloCuenta" prefWidth="120.0" styleClass="table-column" text="Precio" />
+                                </columns>
+                                <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                </columnResizePolicy>
+                            </TableView>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+      </HBox>
+   </center>
 </BorderPane>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -8,7 +9,7 @@
 <BorderPane id="root" fx:id="rootPane" prefHeight="900.0" prefWidth="1600.0" stylesheets="@MeseroStyle.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.restaurantev2.MeseroController">
 
     <left>
-        <VBox alignment="TOP_CENTER" prefHeight="900.0" prefWidth="370.0" spacing="15" styleClass="menuscroller">
+        <VBox alignment="TOP_CENTER" prefHeight="700.0" prefWidth="370.0" spacing="15" styleClass="menuscroller">
             <ImageView fx:id="imagenlogo" fitHeight="235.0" fitWidth="221.0" pickOnBounds="true" preserveRatio="true" styleClass="imagenlogo">
             <image>
                <Image url="@images/adminlogo.png" />
@@ -24,66 +25,96 @@
     </left>
 
     <center>
-        <VBox alignment="TOP_CENTER" prefHeight="900.0" prefWidth="1230.0" spacing="28" style="-fx-background-color: grey;" styleClass="panelmesero">
-            <Label fx:id="lblTitulo" alignment="CENTER" prefHeight="77.0" prefWidth="1161.0" styleClass="lblTitulo" text="DATOS DEL MESERO">
-            <font>
-               <Font name="Georgia" size="34.0" />
-            </font></Label>
-            <HBox spacing="32" styleClass="hbox">
-                <!-- MESAS ASIGNADAS -->
-                <VBox prefHeight="322.0" prefWidth="646.0" spacing="10" styleClass="cajapanel">
-                    <Label alignment="CENTER" prefHeight="48.0" prefWidth="564.0" text="MESAS ASIGNADAS">
+        <VBox alignment="TOP_CENTER" prefHeight="900.0" prefWidth="1230.0" spacing="28" styleClass="inicioMesero">
+         <VBox alignment="CENTER" prefHeight="882.0" prefWidth="1230.0" spacing="15.0">
+            <children>
+                  <Label fx:id="lblTitulo" alignment="CENTER" prefHeight="77.0" prefWidth="1160.0" styleClass="TITULOPANEL" text="DATOS DEL MESERO">
                   <font>
-                     <Font name="Georgia" size="36.0" />
-                  </font></Label>
-                    <TableView fx:id="tablaAsignacionesMesas" prefHeight="220.0" prefWidth="420.0">
-                        <columns>
-                            <TableColumn fx:id="colNombreMesero" prefWidth="170.0" text="Mesero" />
-                            <TableColumn fx:id="colNumeroMesa" prefWidth="124.0" text="Mesa" />
-                            <TableColumn fx:id="colEstadoMesa" prefWidth="262.0" text="Estado" />
-                        </columns>
-                    </TableView>
-                </VBox>
-                <!-- TURNOS ASIGNADOS -->
-                <VBox prefHeight="322.0" prefWidth="622.0" spacing="10" styleClass="cajapanel">
-                    <Label alignment="CENTER" prefHeight="48.0" prefWidth="518.0" text="TURNOS ASIGNADOS">
-                  <font>
-                     <Font name="Georgia" size="36.0" />
-                  </font></Label>
-                    <TableView fx:id="tablaTurnosAsignados" prefHeight="220.0" prefWidth="420.0">
-                        <columns>
-                            <TableColumn fx:id="colTurno" prefWidth="138.0" text="Turno" />
-                            <TableColumn fx:id="colHoraInicio" prefWidth="152.0" text="Hora Inicio" />
-                            <TableColumn fx:id="colHoraFin" prefWidth="242.0" text="Hora Fin" />
-                        </columns>
-                    </TableView>
-                </VBox>
-            </HBox>
-             <!-- SOLICITUDES DE MODIFICACIÓN, CON BOTÓN EDITAR -->
-             <VBox prefHeight="380.0" prefWidth="1186.0" spacing="10" style="-fx-background-color: #EAC282;" styleClass="cajapanel">
-                 <Label alignment="CENTER" prefHeight="48.0" prefWidth="1182.0" text="SOLICITUDES DE MODIFICACIÓN">
-               <font>
-                  <Font name="Georgia" size="36.0" />
-               </font></Label>
-                 <HBox prefHeight="258.0" prefWidth="1142.0" spacing="10" styleClass="hbox">
-                     <TableView fx:id="tablaSolicitudesModificacion" prefHeight="267.0" prefWidth="691.0">
-                         <columns>
-                             <TableColumn fx:id="colMesaSolicitud" prefWidth="160.0" text="Mesa" />
-                             <TableColumn fx:id="colNumeroDeCuenta" prefWidth="144.0" text="Cuenta" />
-                     <TableColumn fx:id="colAreaSolicitud1" prefWidth="177.0" text="Área" />
-                             <TableColumn fx:id="colEstadoSolicitud" prefWidth="206.0" text="Estado" />
-                         </columns>
-                     </TableView>
-                      <Button fx:id="btnEditarCuenta" alignment="BASELINE_LEFT" contentDisplay="CENTER" prefHeight="51.0" prefWidth="448.0" style="-fx-line-spacing: 10; -fx-font-size: 30;" text="    Editar Cuenta">
-                  <graphic>
-                     <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                           <Image url="@images/CategoriaIcono.png" />
-                        </image>
-                     </ImageView>
-                  </graphic></Button>
-                 </HBox>
-             </VBox>
+                     <Font name="Georgia" size="34.0" />
+                  </font>
+               </Label>
+               <HBox alignment="CENTER">
+                  <children>
+                     <VBox prefHeight="763.0" prefWidth="1176.0" spacing="10.0" styleClass="cajapanel">
+                        <children>
+                              <HBox alignment="BASELINE_CENTER" spacing="32" styleClass="hbox">
+                                  <!-- MESAS ASIGNADAS -->
+                                  <VBox alignment="TOP_CENTER" prefHeight="322.0" prefWidth="646.0" spacing="10" styleClass="cajamenu">
+                                      <Label alignment="CENTER" prefHeight="70.0" prefWidth="552.0" styleClass="TITULOPANEL" text="Mesas">
+                                    <font>
+                                       <Font name="Georgia" size="36.0" />
+                                    </font>
+                                 </Label>
+                                      <TableView fx:id="tablaAsignacionesMesas" prefHeight="220.0" prefWidth="420.0">
+                                          <columns>
+                                              <TableColumn fx:id="colNombreMesero" prefWidth="170.0" text="Mesero" />
+                                              <TableColumn fx:id="colNumeroMesa" prefWidth="157.33331298828125" text="Mesa" />
+                                              <TableColumn fx:id="colEstadoMesa" prefWidth="242.66668701171875" text="Estado" />
+                                          </columns>
+                                      </TableView>
+                                  </VBox>
+                                  <!-- TURNOS ASIGNADOS -->
+                                  <VBox alignment="CENTER" prefHeight="322.0" prefWidth="622.0" spacing="10" styleClass="cajamenu">
+                                      <Label alignment="CENTER" prefHeight="70.0" prefWidth="510.0" styleClass="TITULOPANEL" text="Turno">
+                                    <font>
+                                       <Font name="Georgia" size="36.0" />
+                                    </font>
+                                 </Label>
+                                      <TableView fx:id="tablaTurnosAsignados" prefHeight="220.0" prefWidth="420.0">
+                                          <columns>
+                                              <TableColumn fx:id="colTurno" prefWidth="138.0" text="Turno" />
+                                              <TableColumn fx:id="colHoraInicio" prefWidth="197.3333740234375" text="Hora Inicio" />
+                                              <TableColumn fx:id="colHoraFin" prefWidth="211.6666259765625" text="Hora Fin" />
+                                          </columns>
+                                      </TableView>
+                                  </VBox>
+                              </HBox>
+                               <!-- SOLICITUDES DE MODIFICACIÓN, CON BOTÓN EDITAR -->
+                               <VBox prefHeight="380.0" prefWidth="1186.0" spacing="10" styleClass="cajamenu">
+                                   <Label alignment="CENTER" prefHeight="48.0" prefWidth="1182.0" styleClass="TITULOPANEL" text="SOLICITUDES DE MODIFICACIÓN">
+                                 <font>
+                                    <Font name="Georgia" size="36.0" />
+                                 </font>
+                              </Label>
+                                   <HBox prefHeight="258.0" prefWidth="1142.0" spacing="10" styleClass="hbox">
+                                       <TableView fx:id="tablaSolicitudesModificacion" prefHeight="258.0" prefWidth="797.0">
+                                           <columns>
+                                               <TableColumn fx:id="colMesaSolicitud" prefWidth="160.0" text="Mesa" />
+                                               <TableColumn fx:id="colNumeroDeCuenta" prefWidth="144.0" text="Cuenta" />
+                                       <TableColumn fx:id="colAreaSolicitud1" prefWidth="177.0" text="Área" />
+                                               <TableColumn fx:id="colEstadoSolicitud" prefWidth="275.3333740234375" text="Estado" />
+                                           </columns>
+                                       </TableView>
+                                 <VBox alignment="CENTER">
+                                    <children>
+                                              <Button fx:id="btnEditarCuenta" alignment="BASELINE_LEFT" prefHeight="82.0" prefWidth="391.0" style="-fx-line-spacing: 10; -fx-font-size: 30;" text="    Editar Cuenta">
+                                          <graphic>
+                                             <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                   <Image url="@images/CategoriaIcono.png" />
+                                                </image>
+                                             </ImageView>
+                                          </graphic>
+                                       </Button>
+                                    </children>
+                                 </VBox>
+                                   </HBox>
+                               </VBox>
+                        </children>
+                        <opaqueInsets>
+                           <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                        </opaqueInsets>
+                        <padding>
+                           <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                        </padding>
+                     </VBox>
+                  </children>
+               </HBox>
+            </children>
+         </VBox>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
         </VBox>
     </center>
 </BorderPane>

@@ -15,7 +15,7 @@ import java.sql.ResultSet;
 
 public class ModificacionController {
     public static int idCuentaEditar = -1;
-    public static int idSolicitudEditar = -1; // para marcar la solicitud como editada
+    public static int idSolicitudEditar = -1;
 
     @FXML private BorderPane rootPane;
     @FXML private Label lblTitulo, lblMesa, lblEstado;
@@ -33,7 +33,6 @@ public class ModificacionController {
     private ObservableList<DetalleCuenta> listaDetalles = FXCollections.observableArrayList();
     private ObservableList<Platillo> listaMenuPlatillos = FXCollections.observableArrayList();
 
-    // Modelo para los detalles de la cuenta
     public static class DetalleCuenta {
         public String platillo;
         public int cantidad;
@@ -51,7 +50,6 @@ public class ModificacionController {
         public int getIdDetalle() { return idDetalle; }
     }
 
-    // Modelo para los platillos del menú
     public static class Platillo {
         public int idPlatillo;
         public String nombre;
@@ -234,37 +232,20 @@ public class ModificacionController {
     }
 
     private void enviarModificacion() {
-        // Cambia la cuenta a MODIFICADA y luego ABIERTA
-        String sqlModificada = "UPDATE CUENTAS SET ESTADO = 'MODIFICADA' WHERE ID_CUENTA = ?";
-        String sqlAbrir = "UPDATE CUENTAS SET ESTADO = 'ABIERTA' WHERE ID_CUENTA = ?";
-        try (Connection conn = db.obtenerConexion();
-             PreparedStatement pstmt1 = conn.prepareStatement(sqlModificada)) {
-            pstmt1.setInt(1, idCuentaEditar);
-            pstmt1.executeUpdate();
-        } catch (Exception e) {
-            mostrarAlerta("Error", "No se pudo marcar la cuenta como MODIFICADA: " + e.getMessage());
-            return;
-        }
-        try (Connection conn = db.obtenerConexion();
-             PreparedStatement pstmt2 = conn.prepareStatement(sqlAbrir)) {
-            pstmt2.setInt(1, idCuentaEditar);
-            pstmt2.executeUpdate();
-        } catch (Exception e) {
-            mostrarAlerta("Error", "No se pudo reabrir la cuenta: " + e.getMessage());
-            return;
-        }
-        // Marca la solicitud como EDITADA
+        // Cambia el estado de la solicitud a MODIFICADA en SOLICITUDES_MODIFICACION
         if (idSolicitudEditar != -1) {
-            String sqlSolicitud = "UPDATE SOLICITUDES_MODIFICACION SET ESTADO = 'EDITADA' WHERE ID_SOLICITUD = ?";
+            String sqlSolicitud = "UPDATE SOLICITUDES_MODIFICACION SET ESTADO = 'MODIFICADA' WHERE ID_SOLICITUD = ?";
             try (Connection conn = db.obtenerConexion();
                  PreparedStatement pstmt = conn.prepareStatement(sqlSolicitud)) {
                 pstmt.setInt(1, idSolicitudEditar);
                 pstmt.executeUpdate();
+                mostrarAlerta("Modificación enviada", "La solicitud fue marcada como MODIFICADA.");
             } catch (Exception e) {
-                mostrarAlerta("Error", "No se pudo marcar la solicitud como EDITADA: " + e.getMessage());
+                mostrarAlerta("Error", "No se pudo marcar la solicitud como MODIFICADA: " + e.getMessage());
             }
+        } else {
+            mostrarAlerta("Error", "No se recibió el id de solicitud para editar.");
         }
-        mostrarAlerta("Modificación enviada", "La cuenta fue modificada, reabierta y la solicitud marcada como editada.");
     }
 
     private void regresar() {

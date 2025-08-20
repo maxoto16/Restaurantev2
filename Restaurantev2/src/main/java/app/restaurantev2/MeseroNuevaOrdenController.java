@@ -112,7 +112,6 @@ public class MeseroNuevaOrdenController {
         btnSalir.setOnAction(e -> salir());
     }
 
-    // SOLO carga las mesas asignadas al mesero logueado (sin filtrar por disponibilidad)
     private void cargarMesasAsignadas() {
         listaMesas.clear();
         String sql = "SELECT M.NUMERO_MESA FROM ASIGNACIONES_MESAS AM " +
@@ -185,7 +184,6 @@ public class MeseroNuevaOrdenController {
         }
     }
 
-    // Verifica si existe una cuenta ABIERTA para esa mesa y mesero
     private boolean existeCuentaAbierta(int idMesa, int idMesero) {
         String sql = "SELECT ID_CUENTA FROM CUENTAS WHERE ID_MESA = ? AND ID_MESERO = ? AND ESTADO = 'ABIERTA'";
         try (Connection conn = db.obtenerConexion();
@@ -195,7 +193,7 @@ public class MeseroNuevaOrdenController {
             ResultSet rs = pstmt.executeQuery();
             return rs.next();
         } catch (Exception e) {
-            return true; // Si hay error, mejor no crear la cuenta
+            return true;
         }
     }
 
@@ -309,8 +307,25 @@ public class MeseroNuevaOrdenController {
         }
     }
 
+    // MODIFICADO: Cambia el estado de la mesa a OCUPADA al enviar a cocina
     private void enviarACocina() {
-        mostrarAlerta("Éxito", "La orden se envió a cocina correctamente.");
+        Integer numeroMesa = comboMesasAsignadas.getValue();
+        if (numeroMesa == null) {
+            mostrarAlerta("Error", "Selecciona una mesa para enviar la orden.");
+            return;
+        }
+        int idMesa = obtenerIdMesaPorNumero(numeroMesa);
+
+        // Cambia el estado de la mesa a OCUPADA
+        String sql = "UPDATE MESAS SET ESTADO = 'OCUPADA' WHERE ID_MESA = ?";
+        try (Connection conn = db.obtenerConexion();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, idMesa);
+            pstmt.executeUpdate();
+            mostrarAlerta("Éxito", "La orden se envió a cocina correctamente. La mesa ahora está OCUPADA.");
+        } catch (Exception e) {
+            mostrarAlerta("Error", "Error al cambiar el estado de la mesa: " + e.getMessage());
+        }
     }
 
     private void mostrarAlerta(String contenido) {

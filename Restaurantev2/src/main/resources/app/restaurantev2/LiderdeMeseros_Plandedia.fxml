@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -21,9 +22,9 @@
                     <Font name="Georgia Bold Italic" size="23.0" />
                 </font>
             </Label>
-            <VBox alignment="TOP_CENTER" prefHeight="448.0" prefWidth="375.0" spacing="30.0" styleClass="cajamenu">
-                <Button fx:id="btninicio" alignment="BASELINE_LEFT" prefHeight="85.0" prefWidth="460.0" text="   Inicio" />
-                <Button fx:id="btnPlandedia" alignment="BASELINE_LEFT" prefHeight="85.0" prefWidth="460.0" text="   Plan Del Dia" />
+            <VBox alignment="TOP_CENTER" prefHeight="448.0" prefWidth="375.0" spacing="40.0" styleClass="cajamenu">
+                <Button fx:id="btninicio" alignment="BASELINE_CENTER" prefHeight="85.0" prefWidth="460.0" text="   Inicio" />
+                <Button fx:id="btnPlandedia" alignment="BASELINE_CENTER" prefHeight="85.0" prefWidth="460.0" text="   Plan Del Dia" />
             </VBox>
             <Button fx:id="btnSalir" alignment="BASELINE_LEFT" prefHeight="80.0" prefWidth="250.0" style="-fx-background-color: red;" text="Salir" />
         </VBox>
@@ -35,43 +36,66 @@
                     <children>
                         <VBox alignment="TOP_CENTER" layoutX="40.0" layoutY="17.0" prefHeight="858.0" prefWidth="1167.0" styleClass="cajapanel">
                             <children>
-                                <Label alignment="BASELINE_CENTER" prefHeight="53.0" prefWidth="1116.0" style="-fx-background-color: gray;" text="Plan De Dia">
+                                <Label alignment="BASELINE_CENTER" prefHeight="53.0" prefWidth="1116.0" styleClass="TITULOPANEL" text="ASIGNARMESAS DEL DIA DE HOY">
                                     <font>
                                         <Font name="Georgia" size="44.0" />
                                     </font>
                                 </Label>
-                                <Pane prefHeight="809.0" prefWidth="1107.0" style="-fx-background-color: gray;" styleClass="panelmesero">
-                                    <children>
-                                        <TableView fx:id="tablaAsignacionMesasSoloConfechadeHoy" layoutX="25.0" layoutY="115.0" prefHeight="151.0" prefWidth="716.0">
-                                            <columns>
-                                                <TableColumn fx:id="colMesa" prefWidth="200.0" text="Mesa" />
-                                                <TableColumn fx:id="colMesero" prefWidth="251.0" text="Mesero" />
-                                            </columns>
-                                            <columnResizePolicy>
-                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                            </columnResizePolicy>
-                                            <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                            </cursor>
-                                        </TableView>
-                                        <VBox alignment="BASELINE_CENTER" layoutX="759.0" layoutY="13.0" prefHeight="261.0" prefWidth="355.0" spacing="30.0">
-                                            <children>
-                                                <Button fx:id="btnAgregarAdignacionMesa" prefHeight="50.0" prefWidth="156.0" text="Añadir al plan" />
-                                                <Button fx:id="btnEDITAR" prefHeight="50.0" prefWidth="156.0" text="Editar" />
-                                                <Button fx:id="btnELIMINAR" prefHeight="50.0" prefWidth="156.0" text="Eliminar" />
-                                            </children>
-                                        </VBox>
-                                        <HBox layoutX="19.0" layoutY="18.0" prefHeight="38.0" prefWidth="749.0" spacing="30.0">
-                                            <children>
-                                                <ComboBox fx:id="MESASDISPONIBLES" prefWidth="150.0" promptText="MESA" />
-                                                <ComboBox fx:id="NOMBREMESEROSDISPONIBLES" prefWidth="150.0" promptText="MESERO" />
-                                            </children>
-                                        </HBox>
-                                        <TableView fx:id="tablaAsignacionMesasCompleta" layoutX="14.0" layoutY="434.0" prefHeight="311.0" prefWidth="894.0">
+                        <VBox prefHeight="554.0" prefWidth="1123.0" spacing="20.0">
+                           <children>
+                              <HBox alignment="BASELINE_CENTER" prefHeight="74.0" prefWidth="1123.0" spacing="40.0">
+                                 <children>
+                                                <ComboBox fx:id="NOMBREMESEROSDISPONIBLES" prefHeight="130.0" prefWidth="345.0" promptText="MESERO" />
+                                                <ComboBox fx:id="MESASDISPONIBLES" prefHeight="79.0" prefWidth="367.0" promptText="MESA" />
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="292.0" prefWidth="1123.0">
+                                 <children>
+                                              <TableView fx:id="tablaAsignacionMesasSoloConfechadeHoy" prefHeight="227.0" prefWidth="1020.0">
+                                                  <columns>
+                                                      <TableColumn fx:id="colMesa" prefWidth="200.0" text="Mesa" />
+                                                      <TableColumn fx:id="colMesero" prefWidth="251.0" text="Mesero" />
+                                                  </columns>
+                                                  <columnResizePolicy>
+                                                      <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                  </columnResizePolicy>
+                                                  <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                  </cursor>
+                                              </TableView>
+                                    <VBox alignment="CENTER" prefHeight="292.0" prefWidth="582.0">
+                                       <children>
+                                          <VBox prefHeight="293.0" prefWidth="343.0" spacing="20.0">
+                                             <children>
+                                                            <Button fx:id="btnAgregarAdignacionMesa" alignment="BASELINE_CENTER" prefHeight="65.0" prefWidth="400.0" text="Añadir al plan" />
+                                                            <Button fx:id="btnEDITAR" alignment="BASELINE_CENTER" prefHeight="65.0" prefWidth="400.0" text="Editar" />
+                                                            <Button fx:id="btnELIMINAR" alignment="BASELINE_CENTER" prefHeight="64.0" prefWidth="400.0" text="Eliminar" />
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="20.0" left="40.0" right="10.0" top="25.0" />
+                                             </padding>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                           <padding>
+                              <Insets top="30.0" />
+                           </padding>
+                        </VBox>
+                        <VBox alignment="BOTTOM_CENTER" prefHeight="502.0" prefWidth="1123.0">
+                           <children>
+                              <Label alignment="BASELINE_CENTER" prefHeight="53.0" prefWidth="1116.0" styleClass="TITULOPANEL" text="HISTORIAL DE ASIGNACIONES">
+                                 <font>
+                                    <Font name="Georgia" size="44.0" />
+                                 </font>
+                              </Label>
+                                        <TableView fx:id="tablaAsignacionMesasCompleta" prefHeight="311.0" prefWidth="894.0">
                                             <columns>
                                                 <TableColumn fx:id="colMesa2" prefWidth="168.0" text="Mesa" />
-                                                <TableColumn fx:id="colMesero2" prefWidth="128.0" text="Mesero" />
                                                 <TableColumn fx:id="colFecha" prefWidth="178.0" text="Fecha" />
+                                                <TableColumn fx:id="colMesero2" prefWidth="128.0" text="Mesero" />
                                             </columns>
                                             <columnResizePolicy>
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -80,13 +104,8 @@
                                                 <Cursor fx:constant="HAND" />
                                             </cursor>
                                         </TableView>
-                                        <Label layoutX="23.0" layoutY="366.0" prefHeight="60.0" prefWidth="886.0" text="HISTORIAL">
-                                            <font>
-                                                <Font name="Century Gothic" size="30.0" />
-                                            </font>
-                                        </Label>
-                                    </children>
-                                </Pane>
+                           </children>
+                        </VBox>
                             </children>
                         </VBox>
                     </children>

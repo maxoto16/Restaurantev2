@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.Connection;
@@ -17,26 +18,22 @@ import java.sql.Statement;
 
 public class LiderMeserosController {
     @FXML private BorderPane rootPane;
-    @FXML private Button btninicio, btnPlandedia, btnHistorial, btnSalir;
+    @FXML private Button btninicio, btnPlandedia, btnSalir;
     @FXML private Label lblTitulo1;
 
-    // Solicitudes
     @FXML public TableView<Solicitud> tablaSOLICITUDES_MODIFICACION;
     @FXML public TableColumn<Solicitud, Integer> col_ID_CUENTA;
     @FXML public TableColumn<Solicitud, String> col_ID_MESERO;
     @FXML public TableColumn<Solicitud, String> colMOTIVO;
     @FXML public TableColumn<Solicitud, String> colESTADO_SOLICITUD;
-
     @FXML public Button btnAceptar, btnDenegar, btnDetalles;
 
-    // Mesas
     @FXML public TableView<Mesa> tablaMesas;
     @FXML public TableColumn<Mesa, Integer> colNUMERO_MESA;
     @FXML public TableColumn<Mesa, Integer> colCAPACIDAD;
     @FXML public TableColumn<Mesa, String> colUBICACION;
     @FXML public TableColumn<Mesa, String> colESTADO_MESA;
 
-    // Meseros (solo nombre y estado)
     @FXML public TableView<Mesero> tablaUSUARIOS_ROLMESERO;
     @FXML public TableColumn<Mesero, String> colNombre_mesero;
     @FXML public TableColumn<Mesero, String> colESTADO_USUARIO;
@@ -46,7 +43,6 @@ public class LiderMeserosController {
     public ObservableList<Mesa> listaMesas;
     public ObservableList<Mesero> listaMeseros;
 
-    // Beans
     public static class Solicitud {
         private int idCuenta;
         private String idMesero;
@@ -95,7 +91,28 @@ public class LiderMeserosController {
         public String getEstado() { return estado; }
     }
 
-    // Menú de navegación
+    // Para mostrar los detalles de la cuenta adicionalmente en la ventana emergente
+    public static class PlatilloDetalle {
+        public String nombrePlatillo;
+        public double precio;
+        public int cantidad;
+        public int numeroMesa;
+        public String area;
+
+        public PlatilloDetalle(String nombrePlatillo, double precio, int cantidad, int numeroMesa, String area) {
+            this.nombrePlatillo = nombrePlatillo;
+            this.precio = precio;
+            this.cantidad = cantidad;
+            this.numeroMesa = numeroMesa;
+            this.area = area;
+        }
+        public String getNombrePlatillo() { return nombrePlatillo; }
+        public double getPrecio() { return precio; }
+        public int getCantidad() { return cantidad; }
+        public int getNumeroMesa() { return numeroMesa; }
+        public String getArea() { return area; }
+    }
+
     public static class PantallaController  {
         @FXML
         public static void cambiarPantalla(Stage stageActual, String fxml, String titulo, int ancho, int alto) {
@@ -118,7 +135,6 @@ public class LiderMeserosController {
         listaMesas = FXCollections.observableArrayList();
         listaMeseros = FXCollections.observableArrayList();
 
-        // Menú de navegación principal con rutas corregidas
         btninicio.setOnAction(e -> {
             Stage stageActual = (Stage) btninicio.getScene().getWindow();
             PantallaController.cambiarPantalla(stageActual, "/app/restaurantev2/LiderMeseros.fxml", "Inicio - Lider Meseros", 1600, 900);
@@ -130,7 +146,6 @@ public class LiderMeserosController {
 
         btnSalir.setOnAction(e -> btnSalir.getScene().getWindow().hide());
 
-        // Solicitudes
         col_ID_CUENTA.setCellValueFactory(new PropertyValueFactory<>("idCuenta"));
         col_ID_MESERO.setCellValueFactory(new PropertyValueFactory<>("idMesero"));
         colMOTIVO.setCellValueFactory(new PropertyValueFactory<>("motivo"));
@@ -141,14 +156,12 @@ public class LiderMeserosController {
         btnDenegar.setOnAction(e -> denegarSolicitud());
         btnDetalles.setOnAction(e -> mostrarDetallesSolicitud());
 
-        // Mesas
         colNUMERO_MESA.setCellValueFactory(new PropertyValueFactory<>("numeroMesa"));
         colCAPACIDAD.setCellValueFactory(new PropertyValueFactory<>("capacidad"));
         colUBICACION.setCellValueFactory(new PropertyValueFactory<>("ubicacion"));
         colESTADO_MESA.setCellValueFactory(new PropertyValueFactory<>("estado"));
         tablaMesas.setItems(listaMesas);
 
-        // Meseros - SOLO nombre y estado
         colNombre_mesero.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         colESTADO_USUARIO.setCellValueFactory(new PropertyValueFactory<>("estado"));
         tablaUSUARIOS_ROLMESERO.setItems(listaMeseros);
@@ -200,7 +213,6 @@ public class LiderMeserosController {
         }
     }
 
-    // SOLO muestra nombre y estado de los meseros
     public void cargarMeseros() {
         listaMeseros.clear();
         String sql = "SELECT NOMBRE, ESTADO FROM USUARIOS WHERE ROL = 'MESERO'";
@@ -264,17 +276,63 @@ public class LiderMeserosController {
         }
     }
 
+    // MODIFICADA: muestra ventana emergente con motivo, estado, cuenta, mesero
+    // y además los detalles de la cuenta: platillos, precio, cantidad, mesa, area
     public void mostrarDetallesSolicitud() {
         Solicitud solicitud = tablaSOLICITUDES_MODIFICACION.getSelectionModel().getSelectedItem();
         if (solicitud == null) {
             mostrarAlerta("Error", "Selecciona una solicitud.");
             return;
         }
-        String detalles = "Cuenta: " + solicitud.getIdCuenta() +
-                "\nMesero: " + solicitud.getIdMesero() +
-                "\nMotivo: " + solicitud.getMotivo() +
-                "\nEstado: " + solicitud.getEstado();
-        mostrarAlerta("Detalles de Solicitud", detalles);
+
+        // Consulta los detalles de la cuenta asociada
+        ObservableList<PlatilloDetalle> detallesPlatillos = FXCollections.observableArrayList();
+        String sqlDetalles =
+                "SELECT P.NOMBRE AS NOMBRE_PLATILLO, P.PRECIO, DC.CANTIDAD, M.NUMERO_MESA, M.UBICACION " +
+                        "FROM DETALLES_CUENTA DC " +
+                        "JOIN PLATILLOS P ON DC.ID_PLATILLO = P.ID_PLATILLO " +
+                        "JOIN CUENTAS C ON DC.ID_CUENTA = C.ID_CUENTA " +
+                        "JOIN MESAS M ON C.ID_MESA = M.ID_MESA " +
+                        "WHERE DC.ID_CUENTA = ?";
+        try (Connection conn = db.obtenerConexion();
+             java.sql.PreparedStatement pstmt = conn.prepareStatement(sqlDetalles)) {
+            pstmt.setInt(1, solicitud.getIdCuenta());
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                detallesPlatillos.add(new PlatilloDetalle(
+                        rs.getString("NOMBRE_PLATILLO"),
+                        rs.getDouble("PRECIO"),
+                        rs.getInt("CANTIDAD"),
+                        rs.getInt("NUMERO_MESA"),
+                        rs.getString("UBICACION")
+                ));
+            }
+        } catch (Exception e) {
+            mostrarAlerta("Error", "No se pudieron obtener los detalles de la cuenta: " + e.getMessage());
+            return;
+        }
+
+        StringBuilder detalles = new StringBuilder();
+        detalles.append("Cuenta: ").append(solicitud.getIdCuenta())
+                .append("\nMesero: ").append(solicitud.getIdMesero())
+                .append("\nMotivo: ").append(solicitud.getMotivo())
+                .append("\nEstado: ").append(solicitud.getEstado())
+                .append("\n-----\n");
+
+        if (detallesPlatillos.isEmpty()) {
+            detalles.append("La cuenta no tiene platillos.\n");
+        } else {
+            detalles.append("Platillos de la cuenta:\n");
+            for (PlatilloDetalle pd : detallesPlatillos) {
+                detalles.append("Platillo: ").append(pd.getNombrePlatillo())
+                        .append(" | Precio: $").append(pd.getPrecio())
+                        .append(" | Cantidad: ").append(pd.getCantidad())
+                        .append(" | Mesa: ").append(pd.getNumeroMesa())
+                        .append(" | Área: ").append(pd.getArea())
+                        .append("\n");
+            }
+        }
+        mostrarAlerta("Detalles de Solicitud", detalles.toString());
     }
 
     public void mostrarAlerta(String titulo, String contenido) {
@@ -282,6 +340,8 @@ public class LiderMeserosController {
         alert.setTitle(titulo);
         alert.setHeaderText(null);
         alert.setContentText(contenido);
+        alert.setResizable(true);
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         alert.showAndWait();
     }
 }
