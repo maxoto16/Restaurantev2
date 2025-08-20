@@ -1,0 +1,31 @@
+.calificacion-panel {
+    -fx-background-color: #f0f0f0;
+    -fx-padding: 25;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+}
+
+.titulo-calificacion {
+    -fx-text-fill: #222;
+    -fx-padding: 8 0 8 0;
+}
+
+.estrella-radio {
+    -fx-font-size: 24px;
+    -fx-text-fill: #FFD700;
+    -fx-background-color: transparent;
+}
+
+.btn-enviar {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8;
+}
+
+.btn-cancelar {
+    -fx-background-color: #f44336;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8;
+}

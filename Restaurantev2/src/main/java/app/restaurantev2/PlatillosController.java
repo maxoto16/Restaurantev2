@@ -322,19 +322,35 @@ public class PlatillosController {
             return;
         }
 
-        try {
-            String sql = "DELETE FROM PLATILLOS WHERE ID_PLATILLO = ?";
-            try(Connection conn = db.obtenerConexion();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                pstmt.setInt(1, platillo.getIdPlatillo());
-                pstmt.executeUpdate();
-                limpiarCampos();
-                cargarPlatillos();
-                mostrarAlerta("Éxito", "Platillo eliminado");
+        // Ventana de confirmación antes de eliminar platillo
+        Alert confirmDialog = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmDialog.setTitle("Confirmar eliminación");
+        confirmDialog.setHeaderText("¿Seguro que deseas eliminar este platillo?");
+        confirmDialog.setContentText("Esta acción no se puede deshacer.");
+
+        ButtonType btnSi = new ButtonType("Sí, eliminar", ButtonBar.ButtonData.YES);
+        ButtonType btnNo = new ButtonType("No", ButtonBar.ButtonData.NO);
+
+        confirmDialog.getButtonTypes().setAll(btnSi, btnNo);
+
+        confirmDialog.showAndWait().ifPresent(response -> {
+            if (response == btnSi) {
+                try {
+                    String sql = "DELETE FROM PLATILLOS WHERE ID_PLATILLO = ?";
+                    try(Connection conn = db.obtenerConexion();
+                        PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                        pstmt.setInt(1, platillo.getIdPlatillo());
+                        pstmt.executeUpdate();
+                        limpiarCampos();
+                        cargarPlatillos();
+                        mostrarAlerta("Éxito", "Platillo eliminado");
+                    }
+                } catch (Exception e) {
+                    mostrarAlerta("Error", "Error al eliminar el platillo: " + e.getMessage());
+                }
             }
-        } catch (Exception e) {
-            mostrarAlerta("Error", "Error al eliminar el platillo: " + e.getMessage());
-        }
+            // Si elige No, no hace nada
+        });
     }
 
     public void mostrarAlerta(String titulo, String contenido) {

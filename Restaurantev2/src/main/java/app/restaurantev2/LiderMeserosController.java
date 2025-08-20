@@ -127,10 +127,7 @@ public class LiderMeserosController {
             Stage stageActual = (Stage) btnPlandedia.getScene().getWindow();
             PantallaController.cambiarPantalla(stageActual, "/app/restaurantev2/LiderdeMeseros_Plandedia.fxml", "Plan del Día - Lider Meseros", 1600, 900);
         });
-        btnHistorial.setOnAction(e -> {
-            Stage stageActual = (Stage) btnHistorial.getScene().getWindow();
-            PantallaController.cambiarPantalla(stageActual, "/app/restaurantev2/LiderdeMeseros_Notificaciones.fxml", "Notificaciones - Lider Meseros", 1600, 900);
-        });
+
         btnSalir.setOnAction(e -> btnSalir.getScene().getWindow().hide());
 
         // Solicitudes

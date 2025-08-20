@@ -302,19 +302,35 @@ public class UsuariosController {
             return;
         }
 
-        try {
-            String sql = "DELETE FROM USUARIOS WHERE ID_USUARIO = ?";
-            try(Connection conn = db.obtenerConexion();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                pstmt.setInt(1, usuario.getIdUsuario());
-                pstmt.executeUpdate();
-                limpiarCampos();
-                cargarUsuarios();
-                mostrarAlerta("Éxito", "Usuario eliminado");
+        // Ventana de confirmación antes de eliminar
+        Alert confirmDialog = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmDialog.setTitle("Confirmar eliminación");
+        confirmDialog.setHeaderText("¿Seguro que deseas eliminar este usuario?");
+        confirmDialog.setContentText("Esta acción no se puede deshacer.");
+
+        ButtonType btnSi = new ButtonType("Sí, eliminar", ButtonBar.ButtonData.YES);
+        ButtonType btnNo = new ButtonType("No", ButtonBar.ButtonData.NO);
+
+        confirmDialog.getButtonTypes().setAll(btnSi, btnNo);
+
+        confirmDialog.showAndWait().ifPresent(response -> {
+            if (response == btnSi) {
+                try {
+                    String sql = "DELETE FROM USUARIOS WHERE ID_USUARIO = ?";
+                    try(Connection conn = db.obtenerConexion();
+                        PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                        pstmt.setInt(1, usuario.getIdUsuario());
+                        pstmt.executeUpdate();
+                        limpiarCampos();
+                        cargarUsuarios();
+                        mostrarAlerta("Éxito", "Usuario eliminado");
+                    }
+                } catch (Exception e) {
+                    mostrarAlerta("Error", "Error al eliminar el usuario: " + e.getMessage());
+                }
             }
-        } catch (Exception e) {
-            mostrarAlerta("Error", "Error al eliminar el usuario: " + e.getMessage());
-        }
+            // Si elige No, no hace nada
+        });
     }
 
     public void limpiarCampos() {

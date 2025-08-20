@@ -225,19 +225,35 @@ public class CategoriasController {
             return;
         }
 
-        try {
-            String sql = "DELETE FROM CATEGORIAS WHERE ID_CATEGORIA = ?";
-            try(Connection conn = db.obtenerConexion();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                pstmt.setInt(1, categoria.getIdCategoria());
-                pstmt.executeUpdate();
-                limpiarCampos();
-                cargarCategorias();
-                mostrarAlerta("Éxito", "Categoria eliminada");
+        // Ventana de confirmación antes de eliminar la categoría
+        Alert confirmDialog = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmDialog.setTitle("Confirmar eliminación");
+        confirmDialog.setHeaderText("¿Seguro que deseas eliminar esta categoría?");
+        confirmDialog.setContentText("Esta acción no se puede deshacer.");
+
+        ButtonType btnSi = new ButtonType("Sí, eliminar", ButtonBar.ButtonData.YES);
+        ButtonType btnNo = new ButtonType("No", ButtonBar.ButtonData.NO);
+
+        confirmDialog.getButtonTypes().setAll(btnSi, btnNo);
+
+        confirmDialog.showAndWait().ifPresent(response -> {
+            if (response == btnSi) {
+                try {
+                    String sql = "DELETE FROM CATEGORIAS WHERE ID_CATEGORIA = ?";
+                    try(Connection conn = db.obtenerConexion();
+                        PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                        pstmt.setInt(1, categoria.getIdCategoria());
+                        pstmt.executeUpdate();
+                        limpiarCampos();
+                        cargarCategorias();
+                        mostrarAlerta("Éxito", "Categoria eliminada");
+                    }
+                } catch (Exception e) {
+                    mostrarAlerta("Error", "Error al eliminar la categoria: " + e.getMessage());
+                }
             }
-        } catch (Exception e) {
-            mostrarAlerta("Error", "Error al eliminar la categoria: " + e.getMessage());
-        }
+            // Si elige No, no hace nada
+        });
     }
 
     public void limpiarCampos() {

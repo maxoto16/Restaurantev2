@@ -3,8 +3,11 @@ package app.restaurantev2;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -140,7 +143,7 @@ public class MeseroCuentasController {
             return;
         }
         String sqlCerrarCuenta = "UPDATE CUENTAS SET ESTADO = 'CERRADA' WHERE ID_CUENTA = ?";
-        String sqlLiberarMesa = "UPDATE MESAS SET ESTADO = 'LIBRE' WHERE ID_MESA = (SELECT ID_MESA FROM CUENTAS WHERE ID_CUENTA = ?)";
+        String sqlLiberarMesa = "UPDATE MESAS SET ESTADO = 'DISPONIBLE' WHERE ID_MESA = (SELECT ID_MESA FROM CUENTAS WHERE ID_CUENTA = ?)";
         try (Connection conn = db.obtenerConexion();
              PreparedStatement pstmtCerrar = conn.prepareStatement(sqlCerrarCuenta);
              PreparedStatement pstmtLiberar = conn.prepareStatement(sqlLiberarMesa)) {
@@ -152,10 +155,13 @@ public class MeseroCuentasController {
             pstmtLiberar.setInt(1, idCuenta);
             pstmtLiberar.executeUpdate();
 
-            mostrarAlerta("Cuenta pagada y cerrada correctamente. La mesa ahora está libre.");
+            mostrarAlerta("Cuenta pagada y cerrada correctamente. La mesa ahora está disponible.");
             cargarCuentasActivas();
             listaDetalles.clear();
             mostrarTotalCuenta.clear();
+
+            // Mostrar ventana de calificación
+            mostrarVentanaCalificacion(idMesero, idCuenta);
         } catch (Exception e) {
             mostrarAlerta("Error al pagar cuenta: " + e.getMessage());
         }
@@ -199,16 +205,37 @@ public class MeseroCuentasController {
     // Navegación
     private void cambiarPantalla(String fxml) {
         try {
-            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource(fxml));
-            javafx.scene.Parent root = loader.load();
-            rootPane.getScene().setRoot(root);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+            Parent root = loader.load();
+            Stage stage = (Stage) btnSalir.getScene().getWindow();
+            stage.setScene(new javafx.scene.Scene(root));
         } catch (Exception e) {
             mostrarAlerta("Error al cambiar pantalla: " + e.getMessage());
         }
     }
 
     private void salir() {
-        Stage stage = (Stage) rootPane.getScene().getWindow();
+        Stage stage = (Stage) btnSalir.getScene().getWindow();
         stage.close();
+    }
+
+    // Ventana emergente de calificación
+    private void mostrarVentanaCalificacion(int idMesero, int idCuenta) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("CalificacionMesero.fxml"));
+            Parent root = loader.load();
+
+            CalificacionMeseroController controller = loader.getController();
+            controller.inicializarDatos(idMesero, idCuenta);
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Califica al Mesero");
+            stage.setScene(new javafx.scene.Scene(root));
+            stage.setResizable(false);
+            stage.showAndWait();
+        } catch (Exception e) {
+            mostrarAlerta("Error al mostrar calificación: " + e.getMessage());
+        }
     }
 }

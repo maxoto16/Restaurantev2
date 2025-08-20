@@ -1,30 +1,157 @@
-.lbltitulodehistorial {
-    -fx-font-size: 40px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #000000;
-    -fx-padding: 10px;
+.root {
+    -fx-font-family: "Playfair Display", "Georgia", serif;
+    -fx-font-size: 15px;
+    -fx-background-color: #181818;
 }
 
+/* MENÚ LATERAL Y CENTRO IGUAL */
 .vbox {
-    -fx-background-color: #d50000;
+    -fx-background-color: #191919;
+    -fx-background-radius: 0 24 24 0;
+    -fx-border-radius: 0 24 24 0;
+    -fx-border-width: 0 1.5px 0 0;
+    -fx-border-color: #A67C52;
+    -fx-padding: 18 20 18 20;
+    -fx-effect: dropshadow(gaussian, #00000077, 12, 0.16, 0, 3);
 }
-
-/* Estilo de todos los botones */
+.menu-box { -fx-padding: 8 0 0 0; }
+.image-view {
+    -fx-effect: dropshadow(gaussian, #A67C52, 4, 0.12, 0, 2);
+    -fx-transition: all 0.4s;
+    -fx-alignment: center-left;
+}
+.admin-label {
+    -fx-font-family: "Playfair Display", "Georgia", serif;
+    -fx-font-size: 19px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fffbe8;
+    -fx-padding: 8 0 8 0;
+    -fx-alignment: center;
+}
+.button:hover .image-view {
+    -fx-scale-x: 1.16;
+    -fx-scale-y: 1.16;
+    -fx-effect: dropshadow(gaussian, #EAC282bb, 8, 0.20, 0, 2);
+}
 .button {
-    -fx-background-color: #7ca98d;
-    -fx-text-fill: #ffffff;
+    -fx-background-color: #A67C52;
+    -fx-text-fill: #fff5e1;
+    -fx-font-size: 15px;
+    -fx-font-family: "Playfair Display", "Georgia", serif;
+    -fx-font-weight: bold;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #EAC282;
+    -fx-border-width: 1.3px;
+    -fx-effect: dropshadow(gaussian, #A67C52, 2, 0.09, 0, 1);
+    -fx-padding: 10 0 10 20;
+    -fx-cursor: hand;
+    -fx-letter-spacing: 0.8px;
+    -fx-transition: none;
+    -fx-content-display: LEFT;
+}
+.button:hover {
+    -fx-background-color: #8C6A44;
+    -fx-effect: dropshadow(gaussian, #EAC28299, 10, 0.15, 0, 2);
+    -fx-text-fill: #fff5e1;
+}
+#btnSalir {
+    -fx-background-color: #D85B38;
+    -fx-border-color: #D85B38;
+    -fx-text-fill: #fff5e1;
+}
+#btnSalir:hover {
+    -fx-background-color: #a93b1c;
+    -fx-border-color: #a93b1c;
+}
+.titulo-admin, #lblTitulo {
+    -fx-font-family: "Playfair Display", "Georgia", serif;
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #EAC282;
+    -fx-padding: 0 0 12 0;
+    -fx-effect: dropshadow(gaussian, #A67C52, 4, 0.12, 0, 1);
+    -fx-background-color: transparent;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: #A67C52;
+}
+.subtitulo-admin {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #EAC282;
+    -fx-border-color: #A67C52;
+    -fx-border-width: 0 0 1px 0;
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 7 0;
+}
+.card-resumen {
+    -fx-background-color: #232323;
+    -fx-background-radius: 14;
+    -fx-padding: 14 25 14 25;
+    -fx-effect: dropshadow(gaussian, #00000055, 10, 0.09, 0, 3);
+    -fx-border-width: 2px;
+    -fx-border-radius: 14;
+    -fx-border-color: #A67C52;
+}
+.label-card {
     -fx-font-size: 16px;
     -fx-font-weight: bold;
-    -fx-background-radius: 8;
+    -fx-text-fill: #EAC282;
+}
+.valor-card {
+    -fx-font-size: 21px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fffbe8;
+}
+.label-fecha {
+    -fx-font-size: 15px;
+    -fx-text-fill: #fffbe8;
+    -fx-font-weight: bold;
+}
+.btn-filtrar {
+    -fx-background-color: #A67C52;
+    -fx-text-fill: #fff5e1;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #EAC282;
+    -fx-border-width: 1px;
+    -fx-padding: 8 20 8 20;
+    -fx-font-size: 15px;
+    -fx-font-family: "Playfair Display", "Georgia", serif;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+.btn-filtrar:hover {
+    -fx-background-color: #8C6A44;
+}
+.hbox {
+    -fx-spacing: 10;
+    -fx-padding: 0 0 0 0;
 }
 
-
-/* Tabla de datos */
+/* ESTILO ESPECIAL PARA LA TABLA: fondo blanco, texto negro, líneas grises muy suaves */
 .table-view {
-    -fx-border-color: #cccccc;
-    -fx-background-color: #f7f7f7;
+    -fx-background-color: white;
+    -fx-table-cell-border-color: #e6e6e6;
+    -fx-border-color: #e6e6e6;
 }
-
-.table-column {
-    -fx-alignment: CENTER;
+.table-view .column-header-background {
+    -fx-background-color: white;
+    -fx-border-color: #e6e6e6;
+    -fx-border-width: 0 0 1px 0;
+}
+.table-view .table-column {
+    -fx-background-color: white;
+}
+.table-view .table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: #ededed;
+    -fx-border-width: 0 0 1px 0;
+}
+.table-view .table-row-cell:odd {
+    -fx-background-color: #f8f8f8;
+}
+.table-view .cell {
+    -fx-text-fill: black;
+    -fx-background-color: transparent;
 }
